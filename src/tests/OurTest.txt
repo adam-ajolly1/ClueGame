@@ -1,0 +1,3 @@
+In order to make our tests different from the 306 file, we made sure that we were testing
+we were testing a variety of spaces, such as which places were centers / not centers, which 
+places were labels / not labels, for our specific rooms in our .csv file. 
