@@ -14,11 +14,18 @@ public class TestBoardCell {
 		row = myRow;
 		col = myCol;
 	}
+	public int getRow() {
+		return row;
+	}
+	public int getCol() {
+		return col;
+	}
 	public void addAdjacency(TestBoardCell cell) {
-		// add onto the adjacencylist here
+		adjacencyList.add(cell);
+		
 	}
 	public HashSet<TestBoardCell> getAdjList() {
-		return new HashSet<TestBoardCell>();
+		return adjacencyList;
 	}
 	
 	public boolean isRoom() {
