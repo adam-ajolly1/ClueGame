@@ -3,6 +3,11 @@ package experiment;
 import java.util.HashSet;
 
 public class TestBoardCell {
+	@Override
+	public String toString() {
+		return "TestBoardCell [row=" + row + ", col=" + col + "]";
+	}
+
 	private int row;
 	private int col;
 	private HashSet<TestBoardCell> adjacencyList = new HashSet<TestBoardCell>(); 
@@ -28,7 +33,7 @@ public class TestBoardCell {
 		return adjacencyList;
 	}
 	
-	public boolean isRoom() {
+	public boolean getIsRoom() {
 		return isRoom;
 	}
 	
@@ -36,7 +41,7 @@ public class TestBoardCell {
 		this.isRoom = isRoom;
 	}
 	
-	public boolean isOccupied() {
+	public boolean getIsOccupied() {
 		return isOccupied;
 	}
 	

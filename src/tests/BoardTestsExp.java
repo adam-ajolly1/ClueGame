@@ -19,7 +19,7 @@ class BoardTestsExp {
 	// create a test board object to test all other adjacencies on
 	void init() {
 		TestBoardCell [][] arr = new TestBoardCell[TestBoard.ROWS][TestBoard.COLS];
-		test = new TestBoard(arr);
+		test = new TestBoard();
 	}
 
 
@@ -48,13 +48,9 @@ class BoardTestsExp {
 	void testAdjacencyRightEdge() {
 		// tests adjacency lists on the right edge
 		TestBoardCell testCell = test.getCell(1, 3);
-		TestBoardCell adjacentTop = new TestBoardCell(0, 3);
-		TestBoardCell adjacentBottom = new TestBoardCell(2, 3);
-		TestBoardCell adjacentLeft = new TestBoardCell(1, 2);
-
-		Assert.assertTrue(testCell.getAdjList().contains(adjacentTop));
-		Assert.assertTrue(testCell.getAdjList().contains(adjacentBottom));
-		Assert.assertTrue(testCell.getAdjList().contains(adjacentLeft));
+		Assert.assertTrue(testCell.getAdjList().contains(test.getCell(0, 3)));
+		Assert.assertTrue(testCell.getAdjList().contains(test.getCell(2, 3)));
+		Assert.assertTrue(testCell.getAdjList().contains(test.getCell(1, 2)));
 		Assert.assertEquals(3, testCell.getAdjList().size());
 
 	}	
@@ -62,12 +58,11 @@ class BoardTestsExp {
 	void testAdjacencyLeftEdge() {
 		// tests adjacency on the left edge
 		TestBoardCell cell = test.getCell(3, 0);
-		TestBoardCell adjacentRow = new TestBoardCell(3,1);
-		TestBoardCell adjacentCol = new TestBoardCell(2,0);
 
-		Assert.assertTrue(cell.getAdjList().contains(adjacentRow));
 
-		Assert.assertTrue(cell.getAdjList().contains(adjacentCol));
+		Assert.assertTrue(cell.getAdjList().contains(test.getCell(3, 1)));
+
+		Assert.assertTrue(cell.getAdjList().contains(test.getCell(2, 0)));
 		Assert.assertEquals(2, cell.getAdjList().size());
 
 	}
@@ -75,18 +70,11 @@ class BoardTestsExp {
 	void testAdjacencyMiddle() {
 		// tests adjacency lists on the middle of the board
 		TestBoardCell cell = test.getCell(1, 1);
-		TestBoardCell adjacentLeft = new TestBoardCell(0,1);
-		TestBoardCell adjacentRight = new TestBoardCell(2,1);
-		TestBoardCell adjacentTop = new TestBoardCell(1,0);
-		TestBoardCell adjacentBottom = new TestBoardCell(1,2);
 
-		Assert.assertTrue(cell.getAdjList().contains(adjacentLeft));
-
-		Assert.assertTrue(cell.getAdjList().contains(adjacentRight));
-
-		Assert.assertTrue(cell.getAdjList().contains(adjacentTop));
-
-		Assert.assertTrue(cell.getAdjList().contains(adjacentBottom));
+		Assert.assertTrue(cell.getAdjList().contains(test.getCell(0, 1)));
+		Assert.assertTrue(cell.getAdjList().contains(test.getCell(2,1)));
+		Assert.assertTrue(cell.getAdjList().contains(test.getCell(1,0)));	
+		Assert.assertTrue(cell.getAdjList().contains(test.getCell(1,2)));
 		Assert.assertEquals(4, cell.getAdjList().size());
 	}
 	@Test
@@ -140,10 +128,11 @@ class BoardTestsExp {
 	void testOccupied() {
 		// tests a move of 4 on an empty board
 		//(0, 2), (1,1), (2, 0), (3, 1), (2, 2), (1, 3)
-		TestBoardCell testCell = test.getCell(0,0);
-		test.calcTargets(testCell, 4);
 		test.getCell(3, 1).setOccupied(true);
 		test.getCell(1, 3).setOccupied(true);
+		TestBoardCell testCell = test.getCell(0,0);
+		test.calcTargets(testCell, 4);
+		
 		HashSet<TestBoardCell> targets = test.getTargets();
 		Assert.assertEquals(4, targets.size());
 		Assert.assertTrue(targets.contains(test.getCell(0,2)));
@@ -158,17 +147,17 @@ class BoardTestsExp {
 	@Test
 	void testRoom() {
 		TestBoardCell testCell = test.getCell(0,0);
-		test.calcTargets(testCell, 4);
 		test.getCell(3, 1).setRoom(true);
 		test.getCell(1, 3).setRoom(true);
+		test.calcTargets(testCell, 4);
 		HashSet<TestBoardCell> targets = test.getTargets();
-		Assert.assertEquals(4, targets.size());
+		Assert.assertEquals(6, targets.size());
 		Assert.assertTrue(targets.contains(test.getCell(0,2)));
 		Assert.assertTrue(targets.contains(test.getCell(1,1)));
 		Assert.assertTrue(targets.contains(test.getCell(2,0)));
-		Assert.assertFalse(targets.contains(test.getCell(3,1)));
+		Assert.assertTrue(targets.contains(test.getCell(3,1)));
 		Assert.assertTrue(targets.contains(test.getCell(2,2)));
-		Assert.assertFalse(targets.contains(test.getCell(1,3)));
+		Assert.assertTrue(targets.contains(test.getCell(1,3)));
 	}
 
 
