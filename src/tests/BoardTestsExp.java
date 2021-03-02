@@ -23,7 +23,6 @@ class BoardTestsExp {
 	}
 
 
-
 	@Test
 	void testAdjacencyTopLeftCorner() {
 		// Tests adjacency lists on the top left corner
