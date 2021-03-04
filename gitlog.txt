@@ -33,3 +33,68 @@ Author: Katherine Aubert <kaubert@mymail.mines.edu>
 Date:   Fri Feb 26 11:40:22 2021 -0700
 
     Fixed null pointer exception error on board and adjacency list tests
+commit 6b9676c1cf7b745fa7a41121a67bb11a0d457893
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Tue Mar 2 10:31:22 2021 -0700
+
+    Fixed null pointer exceptions in BoardTestsExp and refactored
+
+commit 91fec4e6ebee83b4458906b84cb7c7775469191a
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 23:53:10 2021 -0700
+
+    Added test files
+
+commit 8f04434e8c64069552730b37db5e912ca2c650f1
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 23:52:14 2021 -0700
+
+    added gitlog
+
+commit d87ac858237f05e6e8cd70e242238e68752325b2
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 23:51:42 2021 -0700
+
+    adding data file
+
+commit 6669ec0f9f35f536f3972ba4c2db71661cfd1a72
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 23:49:26 2021 -0700
+
+    Trying again bc idk if the last one worked
+
+commit 001acbd21b1d9901bd7b0506d86f369fecb182a9
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 23:44:53 2021 -0700
+
+    Modified the file init test to be personal to our game, as well as added instance variables, constructors, and methods to clueGame. NOTE: This was done via pair programming on Saros, but Adam had a problem with his Git/computer and therefore I have been the only one pushing.
+
+commit 109ae0f08dce4c50cf3e267b82c1b727af7d56b9
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 22:24:47 2021 -0700
+
+    added data folder and tests for clueGame package for C13A-2
+
+commit 6944ecde3f8a302474d0b8d55b2a18a4c458fb15
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Mon Mar 1 22:07:57 2021 -0700
+
+    Worked more on the CalcTargets() function
+
+commit 337fde028a473682a9dd45afd80d427fc788457d
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 21:16:04 2021 -0700
+
+    Added methods to create adjacency lists
+
+commit b01169acbcbd966045f59098b18cfb078e328e16
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Feb 26 11:46:31 2021 -0700
+
+    test commit
+
+commit 6ac3dc1ee6061c117435a8b9e03071d6838c251b
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Feb 26 11:40:22 2021 -0700
+
+    Fixed null pointer exception error on board and adjacency list tests
