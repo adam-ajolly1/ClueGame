@@ -1,7 +1,7 @@
 // Rooms and room Cards
 Room, CTLM		C
 Room, Marquez		M
-Room, CoorsTek		K
+Room, CoorsTek		O
 Room, Mines Market	I
 Room, Student Center	S
 Room, Trads		T

@@ -2,18 +2,29 @@ package clueGame;
 
 import java.util.HashSet;
 
+import experiment.TestBoardCell;
+
 
 public class BoardCell {
-	private int row = 0;
-	private int col = 0;
+	private int row;
+	private int col;
 	private HashSet<BoardCell> adjacencyList = new HashSet<BoardCell>();
-	private String initial;
+	private char initial;
 	private boolean roomLabel;
 	private boolean roomCenter;
-	public String getInitial() {
+	private char secretPassage = 'a';
+	private DoorDirection doordirection;
+	
+	public int getRow() {
+		return row;
+	}
+	public int getCol() {
+		return col;
+	}
+	public char getInitial() {
 		return initial;
 	}
-	public void setInitial(String initial) {
+	public void setInitial(char initial) {
 		this.initial = initial;
 	}
 	public boolean isRoomLabel() {
@@ -34,8 +45,7 @@ public class BoardCell {
 	public void setSecretPassage(char secretPassage) {
 		this.secretPassage = secretPassage;
 	}
-	private char secretPassage = 'a';
-	private DoorDirection doordirection;
+	
 	public BoardCell(int row, int col) {
 		this.row = row;
 		this.col = col;
@@ -58,5 +68,9 @@ public class BoardCell {
 	}
 	public char getSecretPassage() {
 		return secretPassage;
+	}
+	public void addAdjacency(BoardCell cell) {
+		adjacencyList.add(cell);
+		
 	}
 }

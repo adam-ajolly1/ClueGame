@@ -1,8 +1,11 @@
 package clueGame;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import experiment.TestBoardCell;
 
@@ -20,12 +23,6 @@ public class Board {
 	private Board() {
 		super();
 		initialize();
-		grid = new TestBoardCell[numRows][numCols];
-		for(int row = 0; row < numRows; row ++) {
-			for(int col = 0; col < numCols; col ++) {
-				grid[row][col] = new TestBoardCell(row, col);
-			}
-		}
 		for(int row = 0; row < numRows; row ++) {
 			for(int col = 0; col < numCols; col ++) {
 				makeAdjacencyList(grid[row][col]);
@@ -49,6 +46,19 @@ public class Board {
     }
     public void loadSetupConfig() {
     	// read setup file and set relevant variables
+    	try {
+    		File f = new File(setupConfigFile);
+			Scanner read = new Scanner(f);
+			while(read.hasNextLine()) {
+				String data = read.nextLine();
+				String[] arr = data.split(" ");
+				if (arr[0] == "Room,") {
+					roomMap.add() //TODO: Finish this
+				}
+			}
+    	} catch (FileNotFoundException e) {
+    		e.printStackTrace();
+    	}
     	
     }
     public void loadLayoutConfig() {
@@ -75,14 +85,41 @@ public class Board {
     	}
     	numRows = rowCount;
     	numCols = colCount;
-    	String[][] grid2 = new String[numRows][numCols];
+    	grid = new BoardCell[numRows][numCols];
     	br = new BufferedReader(new FileReader(layoutConfigFile));
-    	for(int i = 0; i < numRows; i++) {
+    	for(int row = 0; row < numRows; row ++) {
     		line = br.readLine();
     		arr = line.split(",");
     		for(int column = 0; column < arr.length; column ++) {
-    			BoardCell c = new BoardCell(i, column);
-    			// TODO: add appropriate setters
+    			BoardCell c = new BoardCell(row, column);
+    			String symbol = arr[column];
+    			char initial = symbol.charAt(0);
+    			c.setInitial(initial); // sets room initial
+    			if(symbol.length() > 1) {
+    				char special = symbol.charAt(1);
+    				if(special == '*') {
+    					c.setRoomCenter(true);
+    				}
+    				else if(special == '#') {
+    					c.setRoomLabel(true);
+    				}
+    				else if(special == '^') {
+    					c.setDoordirection(DoorDirection.UP);
+    				}
+    				else if (special == '>') {
+    					c.setDoordirection(DoorDirection.RIGHT);
+    				}
+    				else if (special == 'v') {
+    					c.setDoordirection(DoorDirection.DOWN);
+    				}
+    				else if (special == '<') {
+    					c.setDoordirection(DoorDirection.LEFT);
+    				}
+    				else {
+    					c.setSecretPassage(special);
+    				}
+    			}
+    			grid[row][column] = c; // adds appropriate cell to the grid	
     		}
     	}
     }
@@ -101,20 +138,25 @@ public class Board {
 		layoutConfigFile = layout;
 		setupConfigFile = setup;
 	}
-	public int getNumRows() {
-		//numRows = -1
-		if (numRows != -1) {
-			return numRows
-		}
-		
-		return numRows;
-	}
-	public int getNumColumns() {
-		return numCols;
-	}
 	public BoardCell getCell(int row, int col) {
 		return new BoardCell(row, col);
 	}
+	public void makeAdjacencyList(BoardCell cell) {
+
+		if(cell.getRow() +1 < numRows) {
+			cell.addAdjacency(this.getCell(cell.getRow()+1, cell.getCol()));
+		}
+		if(cell.getRow() -1 >= 0) {
+			cell.addAdjacency(this.getCell(cell.getRow()-1, cell.getCol()));
+		}
+		if(cell.getCol() +1 < numCols) {
+			cell.addAdjacency(this.getCell(cell.getRow(), cell.getCol()+1));
+		}
+		if(cell.getCol() -1 >= 0) {
+			cell.addAdjacency(this.getCell(cell.getRow(), cell.getCol()-1));
+		}
+	}
+	
 	
 
 }
