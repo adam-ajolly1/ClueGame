@@ -172,9 +172,6 @@ public class Board {
     					
     				}
     				else if(special == '#') {
-    					System.out.println("adam");
-    					System.out.println(row);
-    					System.out.println(column);
     					c.setRoomLabel(true);
     					// for every room and character representation
     					for (Entry<Room, Character> entry : roomMap.entrySet()) {

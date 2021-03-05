@@ -9,7 +9,7 @@ S,S*,S,S,W,W,K,K,K,K,K,K,K,W,W,W,M,M*,M,MC,K
 S,S,S,S,W,W,W,W,W,W,W,W,W,W,W,W,M,M,M,M,K
 S,S,S,S,W,W,W,W,W,W,W,W,W,W,W,W,W,W^,W,W,K
 W^,W,W,W,W,W,W,O,O,O,O,O,O,O,W,W,W,W,W,W,K
-R,R,Wv,W,W,W,W>,O,O,O,O#,O,O,O,<W,W,W,W,W,C,K
+R,R,Wv,W,W,W,W>,O,O,O,O#,O,O,O,W<,W,W,W,W,C,K
 R,R#,R,R,W,W,W,O,O,O,O*,O,O,O,W,W,C,C#,C,C,K
 R,R*,R,R,W,W,W,O,O,O,O,O,O,O,W,W>,C,C*,C,C,W
 RL,R,W^,W,W,W,W,W,W,W,W,W,W,W,W,W,C,C,C,C,W

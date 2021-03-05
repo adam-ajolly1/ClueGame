@@ -98,8 +98,6 @@ public class FileInitTests306 {
 		BoardCell cell = board.getCell( 23, 23);
 		Room room = board.getRoom( cell ) ;
 		assertTrue( room != null );
-		System.out.println("work?");
-		System.out.println(room.getName());
 		assertEquals( room.getName(), "Kitchen" ) ;
 		
 		assertFalse( cell.isLabel() );
