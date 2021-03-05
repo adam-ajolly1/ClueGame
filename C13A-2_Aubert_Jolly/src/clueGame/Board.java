@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import experiment.TestBoardCell;
@@ -54,13 +55,14 @@ public class Board {
     	loadConfigFiles();
     }
     public void loadConfigFiles() {
+    	loadSetupConfig();
     	try {
 			loadLayoutConfig();
 		} catch (BadConfigFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	loadSetupConfig();
+    	
     }
     public void loadSetupConfig() {
     	// read setup file and set relevant variables
@@ -69,16 +71,17 @@ public class Board {
 			Scanner read = new Scanner(f);
 			while(read.hasNextLine()) {
 				String data = read.nextLine();
-				String[] arr = data.split("\\s+");
-				if (arr[0].contentEquals("Room,")) {
-					System.out.println("yes");
-					System.out.println(arr[0]);
-					System.out.println(arr[1]);
-					System.out.println(arr[2]);
-					Room temp = new Room(arr[1]);
-					System.out.println(temp);
-					System.out.println(arr.length);
-					roomMap.put(temp, arr[2].charAt(0)); //TODO: Finish this
+				String[] arr = data.split(",");
+				if (arr.length < 2) {
+					continue;
+				}
+				if (arr[0].contentEquals("Room")) {
+					Room temp = new Room(arr[1].substring(1));
+					roomMap.put(temp, arr[2].charAt(1)); //TODO: Finish this
+				}
+				if (arr[0].contentEquals("Space")) {
+					Room temp = new Room(arr[1].substring(1));
+					roomMap.put(temp, arr[2].charAt(1));
 				}
 			}
 			read.close();
@@ -101,7 +104,7 @@ public class Board {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	int rowCount = 1;
+    	int rowCount = 0;
     	String line = null;
 		try {
 			line = br.readLine();
@@ -112,7 +115,7 @@ public class Board {
     	String[] arr = line.split(",");
     	int colCount = arr.length;
     	while (line != null) {
-    		rowCount++;
+    		
     		// have a counter variable for columns
     		arr = line.split(",");
     		
@@ -125,6 +128,7 @@ public class Board {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+    		rowCount++;
 
     	}
     	numRows = rowCount;
@@ -150,27 +154,52 @@ public class Board {
     		for(int column = 0; column < arr.length; column ++) {
     			BoardCell c = new BoardCell(row, column);
     			String symbol = arr[column];
-    			char initial = symbol.charAt(0);
+    			
+    			Character initial = symbol.charAt(0);
     			c.setInitial(initial); // sets room initial
     			if(symbol.length() > 1) {
     				char special = symbol.charAt(1);
     				if(special == '*') {
     					c.setRoomCenter(true);
+    					// for every room and character representation
+    					for (Entry<Room, Character> entry : roomMap.entrySet()) {
+    						//if the initial of this cell is equal to an initial in the map
+    						if(initial.equals(entry.getValue())) {
+    							//set the label cell of the room to the current cell.
+    							entry.getKey().setCenterCell(c);
+    						}
+    					}
+    					
     				}
     				else if(special == '#') {
+    					System.out.println("adam");
+    					System.out.println(row);
+    					System.out.println(column);
     					c.setRoomLabel(true);
+    					// for every room and character representation
+    					for (Entry<Room, Character> entry : roomMap.entrySet()) {
+    						//if the initial of this cell is equal to an initial in the map
+    						if(initial.equals(entry.getValue())) {
+    							//set the label cell of the room to the current cell.
+    							entry.getKey().setLabelCell(c);
+    						}
+    					}
     				}
     				else if(special == '^') {
     					c.setDoordirection(DoorDirection.UP);
+    					c.setDoorway(true);
     				}
     				else if (special == '>') {
     					c.setDoordirection(DoorDirection.RIGHT);
+    					c.setDoorway(true);
     				}
     				else if (special == 'v') {
     					c.setDoordirection(DoorDirection.DOWN);
+    					c.setDoorway(true);
     				}
     				else if (special == '<') {
     					c.setDoordirection(DoorDirection.LEFT);
+    					c.setDoorway(true);
     				}
     				else {
     					c.setSecretPassage(special);
@@ -183,20 +212,30 @@ public class Board {
     	// check if all of the rows are the same length
 
     
-	public Room getRoom(char initial) {
-		Room charRoom = new Room();
-		return charRoom;
+	public Room getRoom(Character initial) {
+		for (Entry<Room, Character> entry : roomMap.entrySet()) {
+			if(initial.equals(entry.getValue())) {
+				return entry.getKey();
+			}
+		}
+		return null;
 	}
+	
 	public Room getRoom(BoardCell cell) {
-		Room cellRoom = new Room();
-		return cellRoom;
+		Character initial = grid[cell.getRow()][cell.getCol()].getInitial();
+		for (Entry<Room, Character> entry : roomMap.entrySet()) {
+			if(initial.equals(entry.getValue())) {
+				return entry.getKey();
+			}
+		}
+		return null;
 	}
 	public void setConfigFiles(String layout, String setup) {
 		layoutConfigFile = layout;
 		setupConfigFile = setup;
 	}
 	public BoardCell getCell(int row, int col) {
-		return new BoardCell(row, col);
+		return grid[row][col];
 	}
 	public void makeAdjacencyList(BoardCell cell) {
 

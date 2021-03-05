@@ -29,10 +29,11 @@ public class FileInitTests {
 
 	@BeforeAll
 	public static void setUp() {
+		
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("ClueLayout.csv", "ClueSetup306.txt");
+		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		// TODO: for some reason, I couldn't get the ClueSetup.txt to show up, so I just
 		// changed the contents of ClueSetup306.txt to be our contents. 
 		// Initialize will load BOTH config files
@@ -44,7 +45,7 @@ public class FileInitTests {
 		// To ensure data is correctly loaded, test retrieving a few rooms
 		// from the hash, including the first and last in the file and a few others
 		assertEquals("Marquez", board.getRoom('M').getName() );
-		assertEquals("CoorsTek", board.getRoom('K').getName() );
+		assertEquals("CoorsTek", board.getRoom('O').getName() );
 		assertEquals("Trads", board.getRoom('T').getName() );
 		assertEquals("Library", board.getRoom('L').getName() );
 		assertEquals("Rec Center", board.getRoom('R').getName() );
@@ -97,7 +98,7 @@ public class FileInitTests {
 	@Test
 	public void testRooms() {
 		// just test a standard room location
-		BoardCell cell = board.getCell( 2, 3);
+		BoardCell cell = board.getCell( 1, 2);
 		Room room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Trads" ) ;
@@ -106,15 +107,16 @@ public class FileInitTests {
 		assertFalse( cell.isDoorway()) ;
 
 		// this is a label cell to test
-		cell = board.getCell(2, 19);
-		room = board.getRoom( cell ) ;
+		//I CHANGED THE BUILDING NAME FROM BROWNBUILDING TO LIBRARY BECAUSE ROW 2 AND COL 19 IS THE LIBRARY
+		cell = board.getCell(0, 17);
+		room = board.getRoom( cell );
 		assertTrue( room != null );
-		assertEquals( room.getName(), "Brown Building" ) ;
-		assertTrue( cell.isLabel() );
+		assertEquals( room.getName(), "Library" ) ;
+		assertTrue( cell.isLabel());
 		assertTrue( room.getLabelCell() == cell );
 		
 		// this is a room center cell to test
-		cell = board.getCell(20, 11);
+		cell = board.getCell(12, 10);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "CoorsTek" ) ;
@@ -122,11 +124,12 @@ public class FileInitTests {
 		assertTrue( room.getCenterCell() == cell );
 		
 		// this is a secret passage test
-		cell = board.getCell(3, 0);
+		cell = board.getCell(14, 0);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Rec Center" ) ;
-		assertTrue( cell.getSecretPassage() == 'K' );
+		System.out.println(cell.getSecretPassage());
+		assertTrue( cell.getSecretPassage() == 'L' );
 		
 		// test a walkway
 		cell = board.getCell(18, 16);
@@ -138,7 +141,7 @@ public class FileInitTests {
 		assertFalse( cell.isLabel() );
 		
 		// test a closet
-		cell = board.getCell(24, 18);
+		cell = board.getCell(0, 1);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Unused" ) ;

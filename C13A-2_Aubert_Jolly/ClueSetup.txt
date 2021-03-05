@@ -1,13 +1,13 @@
 // Rooms and room Cards
-Room, CTLM		C
-Room, Marquez		M
-Room, CoorsTek		O
-Room, Mines Market	I
-Room, Student Center	S
-Room, Trads		T
-Room, Library		L
-Room, Rec Center	R
-Room, Brown Building	B
+Room, CTLM, C
+Room, Marquez, M
+Room, CoorsTek, O
+Room, Mines Market, I
+Room, Student Center, S
+Room, Trads, T
+Room, Library, L
+Room, Rec Center, R
+Room, Brown Building, B
 // other spaces on board
-Space, Kafadar, Unused, K
+Space, Unused, K
 Space, Walkway, W

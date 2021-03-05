@@ -14,7 +14,11 @@ public class BoardCell {
 	private boolean roomCenter;
 	private char secretPassage = 'a';
 	private DoorDirection doordirection;
+	private boolean doorWay;
 	
+	public void setDoorway(boolean doorway) {
+		doorWay = doorway;
+	}
 	public int getRow() {
 		return row;
 	}
@@ -27,7 +31,7 @@ public class BoardCell {
 	public void setInitial(char initial) {
 		this.initial = initial;
 	}
-	public boolean isRoomLabel() {
+	public boolean isLabel() {
 		return roomLabel;
 	}
 	public void setRoomLabel(boolean roomLabel) {
@@ -55,16 +59,13 @@ public class BoardCell {
 		this.col = col;
 	}
 	public boolean isDoorway() {
-		return false;
+		return doorWay;
 	}
 	public DoorDirection getDoorDirection() {
-		return DoorDirection.UP;
+		return doordirection;
 	}
 	public boolean isRoomCenter() {
-		return false;
-	}
-	public boolean isLabel() {
-		return false;
+		return roomCenter;
 	}
 	public char getSecretPassage() {
 		return secretPassage;
