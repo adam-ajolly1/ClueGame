@@ -53,8 +53,8 @@ public class FileInitTests {
 	@Test
 	public void testBoardDimensions() {
 		// Ensure we have the proper number of rows and columns
-		assertEquals(NUM_ROWS, board.getNumRows());
-		assertEquals(NUM_COLUMNS, board.getNumColumns());
+		assertEquals(NUM_ROWS, board.getRow());
+		assertEquals(NUM_COLUMNS, board.getCol());
 	}
 
 	// Test a doorway in each direction (RIGHT/LEFT/UP/DOWN), plus
@@ -84,8 +84,8 @@ public class FileInitTests {
 	@Test
 	public void testNumberOfDoorways() {
 		int numDoors = 0;
-		for (int row = 0; row < board.getNumRows(); row++)
-			for (int col = 0; col < board.getNumColumns(); col++) {
+		for (int row = 0; row < board.getRow(); row++)
+			for (int col = 0; col < board.getCol(); col++) {
 				BoardCell cell = board.getCell(row, col);
 				if (cell.isDoorway())
 					numDoors++;

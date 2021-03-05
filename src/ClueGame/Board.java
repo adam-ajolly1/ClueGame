@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -29,7 +30,6 @@ public class Board {
 			}
 		}
 	}
-    public void
     // this method returns the only Board
     public static Board getInstance() {
            return theInstance;
@@ -40,7 +40,13 @@ public class Board {
     public void initialize() {
     	loadConfigFiles();
     }
-    public void loadConfigFiles() {
+    public int getRow() {
+    	return numRows;
+    }
+    public int getCol() {
+    	return numCols;
+    }
+    public void loadConfigFiles() throws IOException, BadConfigFormatException {
     	loadLayoutConfig();
     	loadSetupConfig();
     }
@@ -53,7 +59,8 @@ public class Board {
 				String data = read.nextLine();
 				String[] arr = data.split(" ");
 				if (arr[0] == "Room,") {
-					roomMap.add() //TODO: Finish this
+					Room r = new Room(arr[1]); // sets up room with name
+					// TODO: There needs to be something with initial here but I am not sure... roomMap?
 				}
 			}
     	} catch (FileNotFoundException e) {
@@ -61,7 +68,7 @@ public class Board {
     	}
     	
     }
-    public void loadLayoutConfig() {
+    public void loadLayoutConfig() throws IOException, BadConfigFormatException {
     	// load layout file and set relevant variables
     	// while has next line:
     	// figure out how many columns there are
