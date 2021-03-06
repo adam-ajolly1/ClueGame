@@ -15,6 +15,8 @@ public class BoardCell {
 	private char secretPassage = 'a';
 	private DoorDirection doordirection;
 	private boolean doorWay;
+	boolean isOccupied = false;
+	boolean isRoom = false;
 	
 	public void setDoorway(boolean doorway) {
 		doorWay = doorway;
@@ -70,8 +72,18 @@ public class BoardCell {
 	public char getSecretPassage() {
 		return secretPassage;
 	}
+	
 	public void addAdjacency(BoardCell cell) {
 		adjacencyList.add(cell);
+	}
+	public HashSet<BoardCell> getAdjList() {
 		
+		return adjacencyList;
+	}
+	public boolean getIsOccupied() {
+		return isOccupied;
+	}
+	public boolean getIsRoom() {
+		return isRoom;
 	}
 }

@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
@@ -15,6 +16,8 @@ public class Board {
 	// read the files and set numrows and numcols
 	private int numRows = 0;
 	private int numCols = 0;
+	private HashSet<BoardCell> targets;
+	private HashSet<BoardCell> visited;
 	BoardCell [][] grid = new BoardCell [numRows][numCols];
 	private String layoutConfigFile = new String();
 	private String setupConfigFile = new String() ;
@@ -248,6 +251,31 @@ public class Board {
 		if(cell.getCol() -1 >= 0) {
 			cell.addAdjacency(this.getCell(cell.getRow(), cell.getCol()-1));
 		}
+	}
+	
+	public void calcTargets(BoardCell startCell, int pathlength) {
+		visited = new HashSet<BoardCell>();
+		targets = new HashSet<BoardCell>();
+		visited.add(startCell);
+		findAllTargets(startCell, pathlength);
+	}
+	public void findAllTargets(BoardCell thisCell, int numSteps) {
+		
+		for(BoardCell c: thisCell.getAdjList()) {
+			if(visited.contains(c) || c.getIsOccupied()) {
+				continue; // skip this cell
+			} 
+			visited.add(c);
+			if (numSteps == 1 || c.getIsRoom()) {
+				targets.add(c);
+			} else {
+				findAllTargets(c, numSteps - 1);
+			}
+			visited.remove(c);
+		}
+	}
+	public HashSet<BoardCell> getTargets(){
+		return targets;
 	}
 	
 	
