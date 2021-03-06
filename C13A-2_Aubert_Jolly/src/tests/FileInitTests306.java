@@ -140,6 +140,7 @@ public class FileInitTests306 {
 		cell = board.getCell(24, 18);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
+
 		assertEquals( room.getName(), "Unused" ) ;
 		assertFalse( cell.isRoomCenter() );
 		assertFalse( cell.isLabel() );

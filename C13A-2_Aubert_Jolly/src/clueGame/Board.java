@@ -33,9 +33,14 @@ public class Board {
 	}
 	private static Board theInstance = new Board();
     // constructor is private to ensure only one can be created
-	private Board() {
+	public Board() {
 		super();
 		//initialize();
+		grid = new BoardCell[numRows][numCols];
+		roomMap = new HashMap<Room, Character>();
+		layoutConfigFile = "";
+		roomMap.clear();
+		setupConfigFile = "";
 		for(int row = 0; row < numRows; row ++) {
 			for(int col = 0; col < numCols; col ++) {
 				makeAdjacencyList(grid[row][col]);
@@ -47,7 +52,12 @@ public class Board {
     //public void
 	
 	
-    // this method returns the only Board
+    public HashMap<Room, Character> getRoomMap() {
+		return roomMap;
+	}
+
+
+	// this method returns the only Board
     public static Board getInstance() {
            return theInstance;
     }
@@ -212,6 +222,16 @@ public class Board {
     	// check if all of the rows are the same length
 
     
+	public String getLayoutConfigFile() {
+		return layoutConfigFile;
+	}
+
+
+	public String getSetupConfigFile() {
+		return setupConfigFile;
+	}
+
+
 	public Room getRoom(Character initial) {
 		for (Entry<Room, Character> entry : roomMap.entrySet()) {
 			if(initial.equals(entry.getValue())) {
@@ -223,12 +243,13 @@ public class Board {
 	
 	public Room getRoom(BoardCell cell) {
 		Character initial = grid[cell.getRow()][cell.getCol()].getInitial();
+		Room ans = null;
 		for (Entry<Room, Character> entry : roomMap.entrySet()) {
 			if(initial.equals(entry.getValue())) {
-				return entry.getKey();
+				ans = entry.getKey();
 			}
 		}
-		return null;
+		return ans;
 	}
 	public void setConfigFiles(String layout, String setup) {
 		layoutConfigFile = layout;
