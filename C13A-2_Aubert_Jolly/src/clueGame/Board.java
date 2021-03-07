@@ -28,7 +28,7 @@ public class Board {
 	}
 
 
-	public int getNumCols() {
+	public int getNumColumns() {
 		return numCols;
 	}
 	private static Board theInstance = new Board();
@@ -47,6 +47,11 @@ public class Board {
 		layoutConfigFile = "";
 		roomMap.clear();
 		setupConfigFile = "";
+		makeAdjacent();
+	}
+
+
+	private void makeAdjacent() {
 		for(int row = 0; row < numRows; row ++) {
 			for(int col = 0; col < numCols; col ++) {
 				makeAdjacencyList(grid[row][col]);
@@ -187,60 +192,60 @@ public class Board {
     		}
     		
     		for(int column = 0; column < arr.length; column ++) {
-    			BoardCell c = new BoardCell(row, column);
+    			BoardCell cell = new BoardCell(row, column);
     			String symbol = arr[column];
     			
     			Character initial = symbol.charAt(0);
-    			c.setInitial(initial); // sets room initial
+    			cell.setInitial(initial); // sets room initial
     			if (!roomMap.containsValue(initial)){
     				throw new BadConfigFormatException();
     			}
     			if(symbol.length() > 1) {
     				char special = symbol.charAt(1);
     				if(special == '*') {
-    					c.setRoomCenter(true);
+    					cell.setRoomCenter(true);
     					// for every room and character representation
     					for (Entry<Room, Character> entry : roomMap.entrySet()) {
     						//if the initial of this cell is equal to an initial in the map
     						if(initial.equals(entry.getValue())) {
     							//set the label cell of the room to the current cell.
-    							entry.getKey().setCenterCell(c);
+    							entry.getKey().setCenterCell(cell);
     						}
     					}
     					
     				}
     				else if(special == '#') {
-    					c.setRoomLabel(true);
+    					cell.setRoomLabel(true);
     					// for every room and character representation
     					for (Entry<Room, Character> entry : roomMap.entrySet()) {
     						//if the initial of this cell is equal to an initial in the map
     						if(initial.equals(entry.getValue())) {
     							//set the label cell of the room to the current cell.
-    							entry.getKey().setLabelCell(c);
+    							entry.getKey().setLabelCell(cell);
     						}
     					}
     				}
     				else if(special == '^') {
-    					c.setDoordirection(DoorDirection.UP);
-    					c.setDoorway(true);
+    					cell.setDoordirection(DoorDirection.UP);
+    					cell.setDoorway(true);
     				}
     				else if (special == '>') {
-    					c.setDoordirection(DoorDirection.RIGHT);
-    					c.setDoorway(true);
+    					cell.setDoordirection(DoorDirection.RIGHT);
+    					cell.setDoorway(true);
     				}
     				else if (special == 'v') {
-    					c.setDoordirection(DoorDirection.DOWN);
-    					c.setDoorway(true);
+    					cell.setDoordirection(DoorDirection.DOWN);
+    					cell.setDoorway(true);
     				}
     				else if (special == '<') {
-    					c.setDoordirection(DoorDirection.LEFT);
-    					c.setDoorway(true);
+    					cell.setDoordirection(DoorDirection.LEFT);
+    					cell.setDoorway(true);
     				}
     				else {
-    					c.setSecretPassage(special);
+    					cell.setSecretPassage(special);
     				}
     			}
-    			grid[row][column] = c; // adds appropriate cell to the grid	
+    			grid[row][column] = cell; // adds appropriate cell to the grid	
     		}
     	}
     }

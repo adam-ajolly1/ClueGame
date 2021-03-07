@@ -19,6 +19,15 @@ public class BoardCell {
 	boolean isRoom = false;
 	private HashSet<TestBoardCell> visited;
 	
+	public BoardCell(int row, int col) {
+		this.row = row;
+		this.col = col;
+	}
+	public BoardCell() { // default constructor
+		this.row = row;
+		this.col = col;
+	}
+	
 	public boolean isOccupied() {
 		return isOccupied;
 	}
@@ -60,14 +69,7 @@ public class BoardCell {
 		this.secretPassage = secretPassage;
 	}
 	
-	public BoardCell(int row, int col) {
-		this.row = row;
-		this.col = col;
-	}
-	public BoardCell() { // default constructor
-		this.row = row;
-		this.col = col;
-	}
+	
 	public boolean isDoorway() {
 		return doorWay;
 	}
