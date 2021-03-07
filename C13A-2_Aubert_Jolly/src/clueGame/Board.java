@@ -37,7 +37,13 @@ public class Board {
 		super();
 		//initialize();
 		grid = new BoardCell[numRows][numCols];
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				grid[row][col] = null;
+			}
+		}
 		roomMap = new HashMap<Room, Character>();
+		roomMap.clear();
 		layoutConfigFile = "";
 		roomMap.clear();
 		setupConfigFile = "";
@@ -65,10 +71,24 @@ public class Board {
      * initialize the board (since we are using singleton pattern)
      */
     public void initialize() {
+    	grid = new BoardCell[numRows][numCols];
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				grid[row][col] = null;
+			}
+		}
+		roomMap = new HashMap<Room, Character>();
+		roomMap.clear();
+		roomMap.clear();
     	loadConfigFiles();
     }
     public void loadConfigFiles() {
-    	loadSetupConfig();
+    	try {
+			loadSetupConfig();
+		} catch (BadConfigFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     	try {
 			loadLayoutConfig();
 		} catch (BadConfigFormatException e) {
@@ -77,7 +97,7 @@ public class Board {
 		}
     	
     }
-    public void loadSetupConfig() {
+    public void loadSetupConfig() throws BadConfigFormatException {
     	// read setup file and set relevant variables
     	try {
     		File f = new File(setupConfigFile);
@@ -92,9 +112,11 @@ public class Board {
 					Room temp = new Room(arr[1].substring(1));
 					roomMap.put(temp, arr[2].charAt(1)); //TODO: Finish this
 				}
-				if (arr[0].contentEquals("Space")) {
+				else if (arr[0].contentEquals("Space")) {
 					Room temp = new Room(arr[1].substring(1));
 					roomMap.put(temp, arr[2].charAt(1));
+				} else {
+					throw new BadConfigFormatException();
 				}
 			}
 			read.close();
@@ -170,6 +192,9 @@ public class Board {
     			
     			Character initial = symbol.charAt(0);
     			c.setInitial(initial); // sets room initial
+    			if (!roomMap.containsValue(initial)){
+    				throw new BadConfigFormatException();
+    			}
     			if(symbol.length() > 1) {
     				char special = symbol.charAt(1);
     				if(special == '*') {

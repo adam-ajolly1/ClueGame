@@ -49,7 +49,6 @@ public class FileInitTests {
 		// To ensure data is correctly loaded, test retrieving a few rooms
 		// from the hash, including the first and last in the file and a few others
 		assertEquals("Marquez", board2.getRoom('M').getName() );
-		System.out.println(board2.getRoomMap());
 		assertEquals("Coors Tek", board2.getRoom('O').getName() );
 		assertEquals("Trads", board2.getRoom('T').getName() );
 		assertEquals("Library", board2.getRoom('L').getName() );

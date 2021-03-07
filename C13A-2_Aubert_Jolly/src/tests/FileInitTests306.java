@@ -52,7 +52,7 @@ public class FileInitTests306 {
 	public void testBoardDimensions() {
 		// Ensure we have the proper number of rows and columns
 		assertEquals(NUM_ROWS, board.getNumRows());
-		assertEquals(NUM_COLUMNS, board.getNumCols());
+		assertEquals(NUM_COLUMNS, board.getNumColumns());
 	}
 
 	// Test a doorway in each direction (RIGHT/LEFT/UP/DOWN), plus
@@ -83,7 +83,7 @@ public class FileInitTests306 {
 	public void testNumberOfDoorways() {
 		int numDoors = 0;
 		for (int row = 0; row < board.getNumRows(); row++)
-			for (int col = 0; col < board.getNumCols(); col++) {
+			for (int col = 0; col < board.getNumColumns(); col++) {
 				BoardCell cell = board.getCell(row, col);
 				if (cell.isDoorway())
 					numDoors++;
@@ -99,7 +99,6 @@ public class FileInitTests306 {
 		Room room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Kitchen" ) ;
-		
 		assertFalse( cell.isLabel() );
 		assertFalse( cell.isRoomCenter() ) ;
 		assertFalse( cell.isDoorway()) ;
@@ -140,7 +139,6 @@ public class FileInitTests306 {
 		cell = board.getCell(24, 18);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
-
 		assertEquals( room.getName(), "Unused" ) ;
 		assertFalse( cell.isRoomCenter() );
 		assertFalse( cell.isLabel() );
