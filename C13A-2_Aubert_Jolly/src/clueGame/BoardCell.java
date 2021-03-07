@@ -15,8 +15,16 @@ public class BoardCell {
 	private char secretPassage = 'a';
 	private DoorDirection doordirection;
 	private boolean doorWay;
-	boolean isOccupied = false;
+	boolean isOccupied;
 	boolean isRoom = false;
+	private HashSet<TestBoardCell> visited;
+	
+	public boolean isOccupied() {
+		return isOccupied;
+	}
+	public void setOccupied(boolean isOccupied) {
+		this.isOccupied = isOccupied;
+	}
 	
 	public void setDoorway(boolean doorway) {
 		doorWay = doorway;

@@ -8,6 +8,7 @@ public class TestBoard {
 	private TestBoardCell[][] board;
 	private HashSet<TestBoardCell> targets;
 	private HashSet<TestBoardCell> visited;
+	
 	public TestBoard() 
 	{
 		board = new TestBoardCell[ROWS][COLS];
