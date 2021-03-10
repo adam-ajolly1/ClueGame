@@ -47,7 +47,7 @@ public class Board {
 		layoutConfigFile = "";
 		roomMap.clear();
 		setupConfigFile = "";
-		makeAdjacent();
+		
 	}
 
 
@@ -86,6 +86,7 @@ public class Board {
 		roomMap.clear();
 		roomMap.clear();
     	loadConfigFiles();
+    	makeAdjacent();
     }
     public void loadConfigFiles() {
     	try {
@@ -115,7 +116,7 @@ public class Board {
 				}
 				if (arr[0].contentEquals("Room")) {
 					Room temp = new Room(arr[1].substring(1));
-					roomMap.put(temp, arr[2].charAt(1)); //TODO: Finish this
+					roomMap.put(temp, arr[2].charAt(1)); 
 				}
 				else if (arr[0].contentEquals("Space")) {
 					Room temp = new Room(arr[1].substring(1));
@@ -248,7 +249,25 @@ public class Board {
     			grid[row][column] = cell; // adds appropriate cell to the grid	
     		}
     	}
+//    	giveRooms();
     }
+//    public void giveRooms() {
+//    	for (int i = 0; i < numRows; i++) {
+//    		for (int j = 0; j < numCols; j++) {
+//    			if (grid[i][j].isDoorway()) {
+//    				if(grid[i][j].getDoordirection() == DoorDirection.UP) {
+//    					grid[i][j].setCorrespondingRoom(grid[i-1][j].getRoom(););
+//    				}
+//    				else if(grid[i][j].getDoordirection() == DoorDirection.DOWN) {
+//    					
+//    				}
+//    				else if(grid[i][j].getDoordirection() == DoorDirection.LEFT) {
+//    					
+//    				}
+//    			}
+//    		}
+//    	}
+//    }
     	// check if all of the rows are the same length
 
     
@@ -289,20 +308,64 @@ public class Board {
 		return grid[row][col];
 	}
 	public void makeAdjacencyList(BoardCell cell) {
-
-		if(cell.getRow() +1 < numRows) {
-			cell.addAdjacency(this.getCell(cell.getRow()+1, cell.getCol()));
+			// check the door direction
+			DoorDirection direction = cell.getDoordirection();
+			// find the initial of the room that the door leads to 
+			// set the adjacency list to be the room center of that room
+			// then, you can make adjacencyLists of the other cells by the door,
+			// but do not check the direction of the doorway
+		Character initial = ' ';
+		if(cell.getRow() +1 < numRows && !cell.getIsRoom()) {
+			//if it is a door and faces down{
+			//do code for a door else{
+			if (direction == DoorDirection.DOWN) {
+				//find the initial of the room that the door leads to
+				initial = grid[cell.getRow()+1][cell.getCol()].getInitial();
+				findCenter(initial, cell);
+			}
+			else {
+			cell.addAdjacency(grid[cell.getRow()+1][cell.getCol()]);
+			}
 		}
-		if(cell.getRow() -1 >= 0) {
-			cell.addAdjacency(this.getCell(cell.getRow()-1, cell.getCol()));
+		if(cell.getRow() -1 >= 0 && !cell.getIsRoom()) {
+			if (direction == DoorDirection.UP) {
+				//find the initial of the room that the door leads to
+				initial = grid[cell.getRow()-1][cell.getCol()].getInitial();
+				findCenter(initial, cell);
+			} else {
+				cell.addAdjacency(grid[cell.getRow() - 1][cell.getCol()]);
+			}
 		}
-		if(cell.getCol() +1 < numCols) {
+		if(cell.getCol() +1 < numCols && !cell.getIsRoom()) {
+			if (direction == DoorDirection.RIGHT) {
+				//find the initial of the room that the door leads to
+				initial = grid[cell.getRow()][cell.getCol()+1].getInitial();
+				findCenter(initial, cell);
+			} else {
 			cell.addAdjacency(this.getCell(cell.getRow(), cell.getCol()+1));
+			}
 		}
-		if(cell.getCol() -1 >= 0) {
+		if(cell.getCol() -1 >= 0 && !cell.getIsRoom()) {
+			if (direction == DoorDirection.LEFT) {
+				//find the initial of the room that the door leads to
+				initial = grid[cell.getRow()][cell.getCol() -1].getInitial();
+				findCenter(initial, cell);
+			}
 			cell.addAdjacency(this.getCell(cell.getRow(), cell.getCol()-1));
 		}
+		if(initial != ' ') {
+			//find the corresponding room for that initial
+		}
 	}
+	public void findCenter(Character initial, BoardCell cell) {
+		for (Entry<Room, Character> entry : roomMap.entrySet()) {
+			//if the initial of this cell is equal to an initial in the map
+			if(initial.equals(entry.getValue())) {
+				cell.addAdjacency(entry.getKey().getCenterCell());
+			}
+		}
+	}
+	
 	
 	public void calcTargets(BoardCell startCell, int pathlength) {
 		visited = new HashSet<BoardCell>();

@@ -24,7 +24,7 @@ public class BoardAdjTargetTest {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("ClueLayout306.csv", "ClueSetup306.txt");		
+		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
 		// Initialize will load config files 
 		board.initialize();
 	}
@@ -70,6 +70,10 @@ public class BoardAdjTargetTest {
 	{
 		// door to trads - (0,5), (3, 3), (4, 4), (3,5)
 		BoardCell testDoor1 = board.getCell(3, 4);
+		// TODO: Delete following print statements
+		System.out.println(testDoor1.isDoorway());
+		System.out.println(testDoor1.getIsRoom());
+		System.out.println(testDoor1.getDoordirection());
 		HashSet<BoardCell> testList = testDoor1.getAdjList();
 		assertEquals(4, testList.size());
 		assertTrue(testList.contains(board.getCell(0, 5)));
@@ -79,7 +83,7 @@ public class BoardAdjTargetTest {
 
 		// door to marquez - (7, 17)*, (9, 16), (10, 17), (9, 18)
 		BoardCell testDoor2 = board.getCell(9, 17);
-		HashSet<BoardCell> testList2 = testDoor1.getAdjList();
+		HashSet<BoardCell> testList2 = testDoor2.getAdjList();
 		assertEquals(4, testList2.size());
 		assertTrue(testList2.contains(board.getCell(7, 17)));
 		assertTrue(testList2.contains(board.getCell(9, 16)));
@@ -89,7 +93,7 @@ public class BoardAdjTargetTest {
 		// door to coorsktek - (12, 10)*, (10,6), (11, 5), (12, 6)
 
 		BoardCell testDoor3 = board.getCell(11, 6);
-		HashSet<BoardCell> testList3 = testDoor1.getAdjList();
+		HashSet<BoardCell> testList3 = testDoor3.getAdjList();
 		assertEquals(4, testList3.size());
 		assertTrue(testList3.contains(board.getCell(12, 10)));
 		assertTrue(testList3.contains(board.getCell(10, 6)));

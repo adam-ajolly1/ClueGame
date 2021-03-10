@@ -15,6 +15,8 @@ public class BoardCell {
 	private char secretPassage = 'a';
 	private DoorDirection doordirection;
 	private boolean doorWay;
+	private Room correspondingRoom;
+	
 	boolean isOccupied;
 	boolean isRoom = false;
 	private HashSet<TestBoardCell> visited;
@@ -95,5 +97,11 @@ public class BoardCell {
 	}
 	public boolean getIsRoom() {
 		return isRoom;
+	}
+	public Room getCorrespondingRoom() {
+		return correspondingRoom;
+	}
+	public void setCorrespondingRoom(Room correspondingRoom) {
+		this.correspondingRoom = correspondingRoom;
 	}
 }
