@@ -12,8 +12,10 @@ public class BoardCell {
 	private char initial;
 	private boolean roomLabel;
 	private boolean roomCenter;
+	private boolean isUnused;
+
 	private char secretPassage = 'a';
-	private DoorDirection doordirection;
+	private DoorDirection doordirection = DoorDirection.NONE;
 	private boolean doorWay;
 	private Room correspondingRoom;
 	
@@ -95,6 +97,13 @@ public class BoardCell {
 	public boolean getIsOccupied() {
 		return isOccupied;
 	}
+	public void setIsRoom(boolean isRoom) {
+		this.isRoom = isRoom;
+	}
+	@Override
+	public String toString() {
+		return "BoardCell [row=" + row + ", col=" + col + "secret passage=" + secretPassage + " Is room=" + isRoom + "]";
+	}
 	public boolean getIsRoom() {
 		return isRoom;
 	}
@@ -103,5 +112,11 @@ public class BoardCell {
 	}
 	public void setCorrespondingRoom(Room correspondingRoom) {
 		this.correspondingRoom = correspondingRoom;
+	}
+	public boolean isUnused() {
+		return isUnused;
+	}
+	public void setUnused(boolean isUnused) {
+		this.isUnused = isUnused;
 	}
 }

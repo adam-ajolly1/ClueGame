@@ -5,6 +5,7 @@ import experiment.TestBoardCell;
 public class Room {
 	private String name = "";
 	private BoardCell centerCell = new BoardCell(0, 0);
+	private BoardCell correspondingSecretPassage = null;
 	public Room() {
 		super();
 	}
@@ -15,6 +16,18 @@ public class Room {
 		this.name = name;
 	}
 	
+	public BoardCell getSecretPassage() {
+		return correspondingSecretPassage;
+	}
+
+	public void setSecretPassage(BoardCell secretPassage) {
+		this.correspondingSecretPassage = correspondingSecretPassage;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public void setLabelCell(BoardCell labelCell) {
 		this.labelCell = labelCell;
 	}

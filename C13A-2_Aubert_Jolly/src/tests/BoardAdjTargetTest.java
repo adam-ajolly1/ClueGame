@@ -36,11 +36,12 @@ public class BoardAdjTargetTest {
 	{
 		// we want to test a couple of different rooms.
 		// First, the study that only has a single door but a secret room
-		BoardCell testCell = board.getCell(0, 0);
+		BoardCell testCell = board.getCell(17, 9);
 		HashSet<BoardCell> testList = testCell.getAdjList();
+		System.out.println(testList);
 		assertEquals(2, testList.size());
-		assertTrue(testList.contains(board.getCell(4, 6)));
-		assertTrue(testList.contains(board.getCell(20, 19)));
+		assertTrue(testList.contains(board.getCell(16, 6)));
+		assertTrue(testList.contains(board.getCell(18, 12)));
 
 		// now test the trads
 		BoardCell tradsTestCell = board.getCell(0,5);
@@ -71,10 +72,8 @@ public class BoardAdjTargetTest {
 		// door to trads - (0,5), (3, 3), (4, 4), (3,5)
 		BoardCell testDoor1 = board.getCell(3, 4);
 		// TODO: Delete following print statements
-		System.out.println(testDoor1.isDoorway());
-		System.out.println(testDoor1.getIsRoom());
-		System.out.println(testDoor1.getDoordirection());
 		HashSet<BoardCell> testList = testDoor1.getAdjList();
+		System.out.println("TEST ADJACENCY DOORS" + testList);
 		assertEquals(4, testList.size());
 		assertTrue(testList.contains(board.getCell(0, 5)));
 		assertTrue(testList.contains(board.getCell(3, 3)));
@@ -109,6 +108,7 @@ public class BoardAdjTargetTest {
 		// Test on bottom edge of board, just one walkway piece
 		BoardCell testWalkway = board.getCell(18, 13);
 		HashSet<BoardCell> testWalkwayList = testWalkway.getAdjList();
+		System.out.println("TEST ADJ WALKWAYS: " + testWalkwayList);
 		assertEquals(2, testWalkwayList.size());
 		assertTrue(testWalkwayList.contains(board.getCell(17, 13)));
 		assertTrue(testWalkwayList.contains(board.getCell(18, 14)));
@@ -116,7 +116,7 @@ public class BoardAdjTargetTest {
 		// Test near a door but not adjacent
 		BoardCell testWalkway2 = board.getCell(15, 15);
 		HashSet<BoardCell> testWalkwayList2 = testWalkway2.getAdjList();
-		assertEquals(3, testWalkwayList.size());
+		assertEquals(3, testWalkwayList2.size());
 		assertTrue(testWalkwayList2.contains(board.getCell(15, 14)));
 		assertTrue(testWalkwayList2.contains(board.getCell(14, 15)));
 		assertTrue(testWalkwayList2.contains(board.getCell(15, 16)));
@@ -124,7 +124,7 @@ public class BoardAdjTargetTest {
 		// Test adjacent to walkways, between Bradford and Thomas
 		BoardCell testWalkway3 = board.getCell(3, 5);
 		HashSet<BoardCell> testWalkwayList3 = testWalkway3.getAdjList();
-		assertEquals(4, testWalkwayList.size());
+		assertEquals(4, testWalkwayList3.size());
 		assertTrue(testWalkwayList3.contains(board.getCell(3, 4 )));
 		assertTrue(testWalkwayList3.contains(board.getCell(2, 5)));
 		assertTrue(testWalkwayList3.contains(board.getCell(4, 5)));
@@ -133,7 +133,7 @@ public class BoardAdjTargetTest {
 		// Test next to closet
 		BoardCell testWalkway4 = board.getCell(8, 8);
 		HashSet<BoardCell> testWalkwayList4 = testWalkway4.getAdjList();
-		assertEquals(3, testWalkwayList.size());
+		assertEquals(3, testWalkwayList4.size());
 		assertTrue(testWalkwayList4.contains(board.getCell(8, 7 )));
 		assertTrue(testWalkwayList4.contains(board.getCell(9, 8)));
 		assertTrue(testWalkwayList4.contains(board.getCell(8, 9)));
