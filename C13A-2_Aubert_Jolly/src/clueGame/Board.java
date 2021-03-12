@@ -13,7 +13,6 @@ import java.util.Scanner;
 import experiment.TestBoardCell;
 
 public class Board {
-	// read the files and set numrows and numcols
 	private int numRows = 0;
 	private int numCols = 0;
 	private HashSet<BoardCell> targets;
@@ -208,6 +207,7 @@ public class Board {
     					// for every room and character representation
     					for (Entry<Room, Character> entry : roomMap.entrySet()) {
     						//if the initial of this cell is equal to an initial in the map
+    						// use contains (switch around keys (inital) / values?)
     						if(initial.equals(entry.getValue())) {
     							//set the label cell of the room to the current cell.
     							entry.getKey().setCenterCell(cell);

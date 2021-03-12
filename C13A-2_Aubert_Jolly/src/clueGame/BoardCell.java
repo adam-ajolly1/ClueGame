@@ -25,7 +25,7 @@ public class BoardCell {
 		this.row = row;
 		this.col = col;
 	}
-	public BoardCell() { // default constructor
+	public BoardCell() { // default constructor Look into if we use this
 		this.row = row;
 		this.col = col;
 	}
