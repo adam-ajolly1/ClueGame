@@ -389,7 +389,6 @@ public class Board {
 					//find the initial of the room that the door leads to
 					initial = grid[cell.getRow()+1][cell.getCol()].getInitial();
 					findCenter(initial, cell);
-					System.out.println(cell);
 				}
 				else {
 					if(!grid[cell.getRow()+1][cell.getCol()].isUnused()&& (!grid[cell.getRow() + 1][cell.getCol()].getIsRoom()))
