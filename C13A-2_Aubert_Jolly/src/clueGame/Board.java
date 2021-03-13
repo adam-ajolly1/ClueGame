@@ -382,20 +382,21 @@ public class Board {
 		} else {
 
 
-			if(cell.getRow() + 1 < numRows && !grid[cell.getRow() + 1][cell.getCol()].isOccupied()) {
+			if(cell.getRow() + 1 < numRows && (!grid[cell.getRow() + 1][cell.getCol()].isOccupied() || direction != DoorDirection.NONE)) {
 				//if it is a door and faces down{
 				//do code for a door else{
-				if (direction == DoorDirection.DOWN ) {
+				if (direction == DoorDirection.DOWN) {
 					//find the initial of the room that the door leads to
 					initial = grid[cell.getRow()+1][cell.getCol()].getInitial();
 					findCenter(initial, cell);
+					System.out.println(cell);
 				}
 				else {
 					if(!grid[cell.getRow()+1][cell.getCol()].isUnused()&& (!grid[cell.getRow() + 1][cell.getCol()].getIsRoom()))
 						cell.addAdjacency(grid[cell.getRow()+1][cell.getCol()]);
 				}
 			}
-			if(cell.getRow() -1 >= 0 && !grid[cell.getRow() - 1][cell.getCol()].isOccupied()) {
+			if(cell.getRow() -1 >= 0 && (!grid[cell.getRow() - 1][cell.getCol()].isOccupied() || direction != DoorDirection.UP)) {
 				if (direction == DoorDirection.UP) {
 					// we don't want the cell above it, we want the room center
 					//find the initial of the room that the door leads to
@@ -408,7 +409,7 @@ public class Board {
 					}
 				}
 			}
-			if(cell.getCol() + 1 < numCols && !grid[cell.getRow()][cell.getCol()+1].isOccupied()) {
+			if(cell.getCol() + 1 < numCols && (!grid[cell.getRow()][cell.getCol()+1].isOccupied() || direction!= DoorDirection.RIGHT)) {
 				if (direction == DoorDirection.RIGHT) {
 					//find the initial of the room that the door leads to
 					initial = grid[cell.getRow()][cell.getCol()+1].getInitial();
@@ -420,7 +421,7 @@ public class Board {
 					}
 				}
 			}
-			if(cell.getCol() - 1 >= 0 && !grid[cell.getRow()][cell.getCol()-1].isOccupied()) {
+			if(cell.getCol() - 1 >= 0 && (!grid[cell.getRow()][cell.getCol()-1].isOccupied() || direction != DoorDirection.LEFT)) {
 				if (direction == DoorDirection.LEFT) {
 					//find the initial of the room that the door leads to
 					initial = grid[cell.getRow()][cell.getCol() -1].getInitial();
@@ -450,12 +451,11 @@ public class Board {
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
 		visited.add(startCell);
-		findAllTargets(startCell, pathlength);
 	}
 	public void findAllTargets(BoardCell thisCell, int numSteps) {
 
 		for(BoardCell c: thisCell.getAdjList()) {
-			if(visited.contains(c) || c.getIsOccupied()) {
+			if(visited.contains(c) || (c.getIsOccupied() && !c.isRoomCenter())) {
 				continue; // skip this cell
 			} 
 			visited.add(c);
@@ -466,6 +466,9 @@ public class Board {
 			}
 			visited.remove(c);
 		}
+	}
+	public HashSet<BoardCell> getAdjList(int row, int col){
+		return grid[row][col].getAdjList();
 	}
 	public HashSet<BoardCell> getTargets(){
 		return targets;
