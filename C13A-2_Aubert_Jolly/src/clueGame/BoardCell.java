@@ -102,7 +102,7 @@ public class BoardCell {
 	}
 	@Override
 	public String toString() {
-		return "BoardCell [row=" + row + ", col=" + col + "secret passage=" + secretPassage + " Is room=" + isRoom + "]";
+		return "(" + row + "," + col + ")";
 	}
 	public boolean getIsRoom() {
 		return isRoom;

@@ -1,11 +1,21 @@
 package clueGame;
 
+import java.util.HashSet;
+
 import experiment.TestBoardCell;
 
 public class Room {
 	private String name = "";
 	private BoardCell centerCell = new BoardCell(0, 0);
 	private BoardCell correspondingSecretPassage = null;
+	private HashSet<BoardCell> correspondingDoors = new HashSet<BoardCell>();
+	
+	public void addToList(BoardCell cell) {
+		correspondingDoors.add(cell);
+	}
+	public HashSet<BoardCell> getCorrespondingDoors() {
+		return correspondingDoors;
+	}
 	public Room() {
 		super();
 	}
@@ -21,9 +31,14 @@ public class Room {
 	}
 
 	public void setSecretPassage(BoardCell secretPassage) {
-		this.correspondingSecretPassage = correspondingSecretPassage;
+		this.correspondingSecretPassage = secretPassage;
 	}
 
+	@Override
+	public String toString() {
+		return "Room [correspondingSecretPassage=" + correspondingSecretPassage + ", correspondingDoors="
+				+ correspondingDoors + ", labelCell=" + labelCell + "]";
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
