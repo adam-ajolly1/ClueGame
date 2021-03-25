@@ -1,19 +1,23 @@
 package clueGame;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Scanner;
 
 import experiment.TestBoardCell;
 
 public class Board {
 	// private instance variables for the Board class
+	private static final int NUMPLAYERS = 6;
 	private int numRows = 0;
 	private int numCols = 0;
 	private HashSet<BoardCell> targets;
@@ -22,24 +26,33 @@ public class Board {
 	private String layoutConfigFile = new String();
 	private String setupConfigFile = new String() ;
 	private HashMap<Room, Character> roomMap = new HashMap<Room, Character>();
+	private ArrayList<Player> playerList = new ArrayList<Player>();
+	private HashSet<Card> deck = new HashSet<Card>();
+	private Solution theAnswer;
+
+
+
+	public Solution getTheAnswer() {
+		return theAnswer;
+	}
 
 	// constructor is private to ensure only one can be created
-		private static Board theInstance = new Board();
-		public Board() {
-			super();
-		}
+	private static Board theInstance = new Board();
+	public Board() {
+		super();
+	}
 
-		// this method returns the only Board
-		public static Board getInstance() {
-			return theInstance;
-		}
+	// this method returns the only Board
+	public static Board getInstance() {
+		return theInstance;
+	}
 	// setters and getters for instance variables
-	
+
 	public void setConfigFiles(String layout, String setup) {
 		layoutConfigFile = layout;
 		setupConfigFile = setup;
 	}
-	
+
 	public String getLayoutConfigFile() {
 		return layoutConfigFile;
 	}
@@ -70,7 +83,7 @@ public class Board {
 		}
 		return ans;
 	}
-	
+
 	public HashSet<BoardCell> getAdjList(int row, int col){
 		return grid[row][col].getAdjList();
 	}
@@ -87,7 +100,7 @@ public class Board {
 	public int getNumColumns() {
 		return numCols;
 	}
-	
+
 	// initializes the board
 	public void initialize() {
 		grid = new BoardCell[numRows][numCols];
@@ -98,6 +111,12 @@ public class Board {
 		}
 		roomMap = new HashMap<Room, Character>();
 		roomMap.clear();
+		deck = new HashSet<Card>();
+		deck.clear();
+		for(Player p: playerList) {
+			p.getHand().clear();
+		}
+		this.playerList.clear();
 
 		loadConfigFiles();
 		initializeDoors();
@@ -111,6 +130,9 @@ public class Board {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		if(this.playerList.size() == NUMPLAYERS) {
+			this.deal();
+		}
 		try {
 			loadLayoutConfig();
 		} catch (BadConfigFormatException e) {
@@ -118,10 +140,10 @@ public class Board {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// loads clueSetup.txt and populates roomMap
 	public void loadSetupConfig() throws BadConfigFormatException {
-		
+
 		try {
 			File f = new File(setupConfigFile);
 			Scanner read = new Scanner(f);
@@ -132,12 +154,22 @@ public class Board {
 					continue;
 				}
 				if (arr[0].contentEquals("Room")) {
+					this.updateDeck(CardType.ROOM, arr[1]);
 					Room temp = new Room(arr[1].substring(1));
 					roomMap.put(temp, arr[2].charAt(1)); 
 				}
 				else if (arr[0].contentEquals("Space")) {
 					Room temp = new Room(arr[1].substring(1));
 					roomMap.put(temp, arr[2].charAt(1));
+				} else if(arr[0].contentEquals("Weapon")) {
+					this.updateDeck(CardType.WEAPON, arr[1].substring(1));
+				}else if (arr[0].contentEquals("Person")) {
+					if (arr[1].substring(1).contentEquals("Human")) {
+						this.playerList.add(new HumanPlayer(arr[1].substring(1), Color.decode(arr[2].substring(1))));
+					} else {
+						this.playerList.add(new ComputerPlayer(arr[1].substring(1), Color.decode(arr[2].substring(1))));
+					}
+					this.updateDeck(CardType.PERSON, arr[1].substring(1));
 				} else {
 					throw new BadConfigFormatException();
 				}
@@ -146,6 +178,10 @@ public class Board {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void updateDeck(CardType cardType, String cardName) {
+		deck.add(new Card(cardType, cardName));
 	}
 	// loads clueLayout.csv and populates grid based on information
 	public void loadLayoutConfig() throws BadConfigFormatException {
@@ -181,18 +217,18 @@ public class Board {
 		// sets rows and columns based on the numbers read in above 
 		numRows = rowCount; 
 		numCols = colCount;
-		
+
 		// creates grid of boardCells
 		grid = new BoardCell[numRows][numCols];
 		HashMap<Character, Character>secretRoomSet = new HashMap<Character, Character>();
-		
+
 		// creates buffered reader to read CSV
 		try {
 			br = new BufferedReader(new FileReader(layoutConfigFile));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		// cycles through rows and columns
 		for(int row = 0; row < numRows; row ++) {
 			try {
@@ -213,13 +249,13 @@ public class Board {
 				if(initial == 'K') {
 					cell.setUnused(true);
 				}
-				
+
 				// sets room initial
 				cell.setInitial(initial); 
 				if (!roomMap.containsValue(initial)){
 					throw new BadConfigFormatException();
 				}
-				
+
 				// sets variables for special characters *, #, and ^><v
 				if(symbol.length() > 1) {
 					Character special = symbol.charAt(1);
@@ -227,7 +263,7 @@ public class Board {
 					case '*':
 						cell.setRoomCenter(true);
 						cell.setIsRoom(true);
-						
+
 						// sets center of room 
 						for (Entry<Room, Character> entry : roomMap.entrySet()) {
 							if(initial.equals(entry.getValue())) {
@@ -238,7 +274,7 @@ public class Board {
 					case '#':
 						cell.setRoomLabel(true);
 						cell.setIsRoom(true);
-						
+
 						// sets the label cell of the room
 						for (Entry<Room, Character> entry : roomMap.entrySet()) {
 							if(initial.equals(entry.getValue())) {
@@ -268,9 +304,9 @@ public class Board {
 						cell.setSecretPassage(special);
 						cell.setIsRoom(true);
 					}
-					
+
 				}
-				
+
 				// if length =1, sets all non-special rooms also be rooms
 				else if(!(initial == 'W')) {
 					cell.setIsRoom(true);
@@ -294,8 +330,8 @@ public class Board {
 			}
 		}
 	}
-	
-	
+
+
 
 	public void initializeDoors() {
 		//loop through the grid and sets each door to its corresponding room 
@@ -340,10 +376,10 @@ public class Board {
 		}
 	}
 	public void makeAdjacencyList(BoardCell cell) {
-		
+
 		// gets direction of door, returns NONE if no door
 		DoorDirection direction = cell.getDoordirection();
-		
+
 		Character initial = ' ';
 		if (cell.isRoomCenter()) {
 			// if there is a secret passage, include it in adjacency list
@@ -419,7 +455,7 @@ public class Board {
 			}
 		}
 	}
-	
+
 	//finds all the possible end board cells given a startcell and a roll number.
 	public void calcTargets(BoardCell startCell, int pathlength) {
 		//initialize list of all visited cell (once we uncounter a cell, we can't go back)
@@ -431,8 +467,12 @@ public class Board {
 		//call recursive function
 		findAllTargets(startCell, pathlength);
 	}
-	
-	
+
+
+	public HashSet<Card> getDeck() {
+		return deck;
+	}
+
 	public void findAllTargets(BoardCell thisCell, int numSteps) {
 		//for every cell next to thisCell
 		for(BoardCell c: thisCell.getAdjList()) {
@@ -453,12 +493,57 @@ public class Board {
 		}
 	}
 	// makes adjacency lists for each cell in the grid
-		private void makeAdjacent() {
-			for(int row = 0; row < numRows; row ++) {
-				for(int col = 0; col < numCols; col ++) {
-					makeAdjacencyList(grid[row][col]);
-				}
+	private void makeAdjacent() {
+		for(int row = 0; row < numRows; row ++) {
+			for(int col = 0; col < numCols; col ++) {
+				makeAdjacencyList(grid[row][col]);
 			}
 		}
+	}
+
+	public ArrayList<Player> getPlayerList() {
+		return playerList;
+	}
+
+	public void deal() {
+		// TODO Auto-generated method stub
+		HashSet<Card> dealDeck = (HashSet<Card>) this.deck.clone();
+		ArrayList<Card> roomsDeck = new ArrayList<Card>();
+		ArrayList<Card> personDeck = new ArrayList<Card>();
+		ArrayList<Card> weaponDeck = new ArrayList<Card>();
+		for (Card c: dealDeck) {
+			switch(c.getCardType()) {
+			case ROOM:
+				roomsDeck.add(c);
+				break;
+			case PERSON:
+				personDeck.add(c);
+				break;
+			case WEAPON:
+				weaponDeck.add(c);
+				break;
+			}
+		}
+		Random rand = new Random();
+		Card roomAns = roomsDeck.get(rand.nextInt(roomsDeck.size()));
+		Card personAns = personDeck.get(rand.nextInt(personDeck.size()));
+		Card weaponAns = weaponDeck.get(rand.nextInt(weaponDeck.size()));
+		this.setTheAnswer(roomAns, personAns, weaponAns);
+		dealDeck.remove(roomAns);
+		dealDeck.remove(personAns);
+		dealDeck.remove(weaponAns);
+		int counter = 0;
+		while(dealDeck.size() > 0) {
+			Card[] deckArray = dealDeck.toArray(new Card[dealDeck.size()]);
+			Card randomCard = deckArray[rand.nextInt(deckArray.length)];
+			this.playerList.get(counter++ % NUMPLAYERS).updateHand(randomCard);
+			dealDeck.remove(randomCard);
+		}
+
+	}
+
+	public void setTheAnswer(Card room, Card person, Card weapon) {
+		this.theAnswer = new Solution(room, person, weapon);
+	}
 
 }

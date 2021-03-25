@@ -11,3 +11,17 @@ Room, Brown Building, B
 // other spaces on board
 Space, Unused, K
 Space, Walkway, W
+// people
+Person, Marvin, #0FFC800
+Person, PCJ, #FFFFFF
+Person, Marlene, #0000FF
+Person, Adam, #00FF00
+Person, Katherine, #FF00FF
+Person, Human, #000000
+// weapons
+Weapon, Blue Key
+Weapon, Blastercard
+Weapon, Mines Market Fork
+Weapon, Starbucks Cup
+Weapon, CS@Mines Tesla
+Weapon, Pencil
