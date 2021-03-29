@@ -1,7 +1,9 @@
 package clueGame;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 
 public abstract class Player {
 	private String name;
@@ -9,6 +11,7 @@ public abstract class Player {
 	protected int row;
 	protected int column;
 	private HashSet<Card> hand = new HashSet<Card>();
+	private HashSet<Card> seenList = new HashSet<Card>();
 	
 	public Player(String name, Color color) {
 		super();
@@ -18,6 +21,7 @@ public abstract class Player {
 	
 	public void updateHand(Card card) {
 		this.hand.add(card);
+		this.seenList.add(card);
 	}
 	
 	@Override
@@ -41,7 +45,24 @@ public abstract class Player {
 	public HashSet<Card> getHand() {
 		return hand;
 	}
-	
+	public Card disproveSuggestion(Solution suggestion) {
+		ArrayList<Card> matches = new ArrayList<Card>();
+		for(Card c: this.getHand()) {
+			if(c.equals(suggestion.getRoom()) || c.equals(suggestion.getPerson()) || c.equals(suggestion.getWeapon())) {
+				matches.add(c);
+			}
+		}
+		if(matches.size() == 0) {
+			return null;
+		}
+		Random rand = new Random();
+		Card toShow = matches.get(rand.nextInt(matches.size()));
+
+		return toShow;
+	}
+	public void updateSeen(Card seenCard) {
+		this.seenList.add(seenCard);
+	}
 	
 	
 	

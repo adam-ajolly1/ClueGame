@@ -52,6 +52,12 @@ public class Board {
 		layoutConfigFile = layout;
 		setupConfigFile = setup;
 	}
+	public void addToPlayerList(Player player) {
+		playerList.add(player);
+	}
+	public void clearPlayerList() {
+		playerList.clear();
+	}
 
 	public String getLayoutConfigFile() {
 		return layoutConfigFile;
@@ -544,6 +550,31 @@ public class Board {
 
 	public void setTheAnswer(Card room, Card person, Card weapon) {
 		this.theAnswer = new Solution(room, person, weapon);
+	}
+	public boolean checkAccusation(Card room, Card person, Card weapon) {
+		if(theAnswer.getRoom() == room && theAnswer.getPerson() == person && theAnswer.getWeapon() == weapon) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	public Card handleSuggestion(Solution suggestion, Player p) {
+		Card toReturn = new Card();
+		System.out.println("Players List: ");
+		// iterates over player list and disproves suggestion, continuing 
+		// if the player is the suggesting player. 
+		for(Player x: this.playerList) {
+			if(x.equals(p)) {
+				continue;
+			}
+			toReturn = x.disproveSuggestion(suggestion);
+			if(toReturn != null) {
+				break;
+			}
+		}
+		p.updateSeen(toReturn); // adds the shown card to the seen list
+		return toReturn;
 	}
 
 }
