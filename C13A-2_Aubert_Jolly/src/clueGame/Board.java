@@ -561,7 +561,6 @@ public class Board {
 	}
 	public Card handleSuggestion(Solution suggestion, Player p) {
 		Card toReturn = new Card();
-		System.out.println("Players List: ");
 		// iterates over player list and disproves suggestion, continuing 
 		// if the player is the suggesting player. 
 		for(Player x: this.playerList) {
