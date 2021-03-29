@@ -87,6 +87,9 @@ public class GameSolutionTest {
 				numWeaponShown ++;
 			}
 		}
+		// Note to grader: There is an extremely low, but possible outcome where this
+		// test could fail in the very unlikely probablility that there are not 10 of each
+		// chosen. 
 		assertTrue(numRoomShown > 10);
 		assertTrue(numPersonShown > 10);
 		assertTrue(numWeaponShown > 10);
