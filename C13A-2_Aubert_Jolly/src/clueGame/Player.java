@@ -41,6 +41,16 @@ public abstract class Player {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	public void setLocation(int row, int column) {
+		this.row = row;
+		this.column = column;
+	}
+	public int getRow() {
+		return row;
+	}
+	public int getColumn() {
+		return column;
+	}
 	
 	public HashSet<Card> getHand() {
 		return hand;
@@ -62,6 +72,9 @@ public abstract class Player {
 	}
 	public void updateSeen(Card seenCard) {
 		this.seenList.add(seenCard);
+	}
+	public HashSet<Card> getSeenList(){
+		return seenList;
 	}
 	
 	

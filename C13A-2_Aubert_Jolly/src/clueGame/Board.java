@@ -185,7 +185,7 @@ public class Board {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void updateDeck(CardType cardType, String cardName) {
 		deck.add(new Card(cardType, cardName));
 	}
@@ -576,5 +576,14 @@ public class Board {
 		p.updateSeen(toReturn); // adds the shown card to the seen list
 		return toReturn;
 	}
-
+	// function that takes a Room on a board and returns the corresponding card
+	public Card roomToCard(Room r) {
+		String roomName = r.getName();
+		for(Card c: this.getDeck()) {
+			if(c.getCardName().substring(1).equals(roomName) && c.getCardType() == CardType.ROOM) {
+				return new Card(CardType.ROOM, c.getCardName().substring(1));
+			}
+		}
+		return null;
+	}
 }
