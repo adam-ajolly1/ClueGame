@@ -11,6 +11,11 @@ public class ComputerPlayer extends Player {
 	public ComputerPlayer(String name, Color color) {
 		super(name, color);
 	}
+	public ComputerPlayer(String name, int row, int col, Color color) {
+		super(name, color);
+		this.row = row;
+		this.column = col;
+	}
 	public BoardCell selectTargets() {
 		return new BoardCell();
 	}
