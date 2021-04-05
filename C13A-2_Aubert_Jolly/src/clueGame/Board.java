@@ -52,6 +52,12 @@ public class Board {
 		layoutConfigFile = layout;
 		setupConfigFile = setup;
 	}
+	public void addToPlayerList(Player player) {
+		playerList.add(player);
+	}
+	public void clearPlayerList() {
+		playerList.clear();
+	}
 
 	public String getLayoutConfigFile() {
 		return layoutConfigFile;
@@ -179,7 +185,7 @@ public class Board {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void updateDeck(CardType cardType, String cardName) {
 		deck.add(new Card(cardType, cardName));
 	}
@@ -545,5 +551,38 @@ public class Board {
 	public void setTheAnswer(Card room, Card person, Card weapon) {
 		this.theAnswer = new Solution(room, person, weapon);
 	}
-
+	public boolean checkAccusation(Card room, Card person, Card weapon) {
+		if(theAnswer.getRoom() == room && theAnswer.getPerson() == person && theAnswer.getWeapon() == weapon) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	public Card handleSuggestion(Solution suggestion, Player p) {
+		Card toReturn = new Card();
+		// iterates over player list and disproves suggestion, continuing 
+		// if the player is the suggesting player. 
+		for(Player x: this.playerList) {
+			if(x.equals(p)) {
+				continue;
+			}
+			toReturn = x.disproveSuggestion(suggestion);
+			if(toReturn != null) {
+				break;
+			}
+		}
+		p.updateSeen(toReturn); // adds the shown card to the seen list
+		return toReturn;
+	}
+	// function that takes a Room on a board and returns the corresponding card
+	public Card roomToCard(Room r) {
+		String roomName = r.getName();
+		for(Card c: this.getDeck()) {
+			if(c.getCardName().substring(1).equals(roomName) && c.getCardType() == CardType.ROOM) {
+				return new Card(CardType.ROOM, c.getCardName().substring(1));
+			}
+		}
+		return null;
+	}
 }

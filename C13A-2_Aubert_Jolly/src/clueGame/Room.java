@@ -28,11 +28,11 @@ public class Room {
 		correspondingDoors.add(cell);
 	}
 	
-	//To string method used for debugging
 	@Override
 	public String toString() {
-		return "Room [correspondingSecretPassage=" + correspondingSecretPassage + ", correspondingDoors="
-				+ correspondingDoors + ", labelCell=" + labelCell + "]";
+		return "Room [name=" + name + ", centerCell=" + centerCell + ", labelCell=" + labelCell
+				+ ", correspondingSecretPassage=" + correspondingSecretPassage + ", correspondingDoors="
+				+ correspondingDoors + "]";
 	}
 
 	//GETTERS
