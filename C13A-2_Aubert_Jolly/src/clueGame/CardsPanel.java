@@ -82,7 +82,7 @@ public class CardsPanel extends JPanel {
 		seenRoom.setLayout(new GridLayout(numRooms,0));
 		JLabel seenLabel = new JLabel("Seen:");
 		seenRoom.add(seenLabel);
-		seenRoom.add(none);
+//		seenRoom.add(none);
 		
 		
 		rooms.add(handRoom);
@@ -104,6 +104,7 @@ public class CardsPanel extends JPanel {
 		seenWeapon.setLayout(new GridLayout(numWeapons, 0));
 		JLabel seenLabel = new JLabel("Seen: ");
 		seenWeapon.add(seenLabel);
+		
 		seenWeapon.add(none);
 		
 		

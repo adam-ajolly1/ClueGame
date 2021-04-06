@@ -15,19 +15,25 @@ public class ClueGame extends JFrame {
 	
 	
 	public ClueGame() {
-		// Board is singleton, get the only instance
+		// Initialize board
 		gameBoard = Board.getInstance();
-		// set the file names to use my config files
 		gameBoard.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
-		// Initialize will load config files 
 		gameBoard.initialize();
 		
-		// set up three panels and pass in board object to board panel
-		
-		
+		// setting up and adding the bottom panel in the south
 		add(gamePanel, BorderLayout.SOUTH);
+		
+		// setting up and adding the card panel in the east
+		for (Player p: gameBoard.getPlayerList()) {
+			if (p instanceof HumanPlayer) {
+				cardPanel = new CardsPanel(p.getHand());
+			}
+		}
+		add(cardPanel, BorderLayout.EAST);
+		
+		// setting up layout for the window 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-		setSize(1000, 1000);
+		setSize(820, 880);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
