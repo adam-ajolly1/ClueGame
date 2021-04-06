@@ -1,3 +1,75 @@
+commit d6e6aa4aa54e33e7c200e1ad59b1cc7df3418f67
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Apr 5 23:20:42 2021 -0600
+
+    Finished up adding people / weapons / rooms panel and made functions so that you can add smoothly to them. We pair programmed on this one too and Adam has a git issue!
+
+commit e5241b91c2280bb7107920fb740674c7c585756d
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Apr 5 22:20:33 2021 -0600
+
+    Starting adding panels for seen people / weapons / rooms
+
+commit 345668389112f3baae48c6e15052668866e50869
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Apr 5 17:12:16 2021 -0600
+
+    Added functional GameControlPanel for C21A-1. We pair programmed, so there was only one commit!
+
+commit 37c6691edb182e9c878b4063f401d02e6791a8aa
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Apr 5 10:23:12 2021 -0600
+
+    Added C20 zip file
+
+commit 3c984d1aca970452715ae7015572526ca85b4918
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Sun Mar 28 23:48:36 2021 -0600
+
+    Added a lil comment
+
+commit 423a7c3f49b86baf5139a7be14c581c404c55c67
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Sun Mar 28 23:45:27 2021 -0600
+
+    Deleted a print statement in Board ... oopsie :P
+
+commit 976c6a45a97b0a56f9a2be73bf556a08a77d2829
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Sun Mar 28 23:44:00 2021 -0600
+
+    Added Computer AI creating suggestions as well as selecting targets, methods and tests for both of these.
+
+commit 3921193c427b9bdbb2db1eb708621191e869b1fc
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Sun Mar 28 21:15:59 2021 -0600
+
+    Added tests, methods, and refactor for check accusation, player disproves suggestion, and handling suggestions
+
+commit 52f7fa8d421b6f714a2216ee0a765acbb399061c
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Thu Mar 25 16:05:07 2021 -0600
+
+    Trying to push some mysteriously untracked files
+
+commit d207b409290a93d5bd0e334354f8035b8918f430
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Thu Mar 25 15:59:06 2021 -0600
+
+    Fixed changes where the human player was not getting added to the playerList
+
+commit ca2411e84a18523dda72f94cf1977e0e4430f3e3
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Tue Mar 16 10:41:40 2021 -0600
+
+    Refactored by commenting our code, adding clarity to variable names, and changing layout to be constructor -> setters -> getters. Also switced a few if/else statements to be switch statements.
+
+commit 5e1b338f8136d37722c9568df4db93e97e0e76a7
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Mar 12 21:13:08 2021 -0700
+
+    added up to date git log
+
 commit f33f7e58b08e39ea22fbac304553e14d9578a4d8
 Author: Katherine Aubert <kaubert@mymail.mines.edu>
 Date:   Fri Mar 12 21:11:42 2021 -0700
