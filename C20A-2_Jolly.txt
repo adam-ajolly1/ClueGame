@@ -1,0 +1,44 @@
+* created side panel and added color for each card that would be seen
+*   Merge branch 'master' of https://github.com/adam-ajolly1/ClueGame
+|\  
+| * Added functional GameControlPanel for C21A-1. We pair programmed, so there was only one commit!
+| * Added C20 zip file
+| * Added a lil comment
+| * Deleted a print statement in Board ... oopsie :P
+| * Added Computer AI creating suggestions as well as selecting targets, methods and tests for both of these.
+| * Added tests, methods, and refactor for check accusation, player disproves suggestion, and handling suggestions
+* | started working on the side panel display
+|/  
+* Trying to push some mysteriously untracked files
+* Fixed changes where the human player was not getting added to the playerList
+* Refactored by commenting our code, adding clarity to variable names, and changing layout to be constructor -> setters -> getters. Also switced a few if/else statements to be switch statements.
+* added up to date git log
+* Made 306 tests pass
+* A zip file from one of our past assignments that I'll just push for fun ;)
+* All tests now pass, including occupied, and targets at door. NOTE: WE DID THIS ALL VIA PAIR PROGRAMMING. My computer is just set up better to push, so I am the one that is doing it most often.
+* Finished testAdjacencyWalkways to pass!
+* Modified some comments for code review
+* All door adjacency tests pass :)
+* Did some refactoring, changed some variable names as well as some functions
+* finished up all tests including exception tests, and now everything works when run together. Had to initialize every cell within grid or else it would remember the grid in between runs.
+* This was the file that actually changed and modified the tests! Previous commit error.
+* Added new tests to BoardAdjTargetTest to ensure that targets and occupied spaces were calculated properly
+* added a getter for roomMap within board.java to try to debug. also changed main Board object in FileInitTests.java to board2 to try and debug. no luck yet
+* Started working on adjacency and target tests, and changed some things about Board and BoardCell to make it work
+* started working on exceptions
+* all tests work now, had to move all data files to the main file because I did not know how to change the data path. Made some adjustments to FileInitTests.java. I think the cell were not right. Top left is 0,0. Added boolean doorWay to BoardCell.java.
+* added constructor with name parameter in Room.java, Generated default constructor within Room.java, added try, catch lines within loadLayoutConfig
+* - fixed FileInitTests to make them not error (yet) - added Room constructor and setters - added constructors for BadConfigFormatException - added throws clauses to multiple methods in Board
+* Finished loadLayoutConfig and also started working on LoadSetupConfig. Also fixed some items in BoardCell to match TestBoardCell.
+* Started working on load config files, specifically load layout file.
+* Fixed null pointer exceptions in BoardTestsExp and refactored
+* Added test files
+* added gitlog
+* adding data file
+* Trying again bc idk if the last one worked
+* Modified the file init test to be personal to our game, as well as added instance variables, constructors, and methods to clueGame. NOTE: This was done via pair programming on Saros, but Adam had a problem with his Git/computer and therefore I have been the only one pushing.
+* added data folder and tests for clueGame package for C13A-2
+* Worked more on the CalcTargets() function
+* Added methods to create adjacency lists
+* test commit
+* Fixed null pointer exception error on board and adjacency list tests
