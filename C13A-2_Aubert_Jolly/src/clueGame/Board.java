@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,9 +14,11 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.JPanel;
+
 import experiment.TestBoardCell;
 
-public class Board {
+public class Board extends JPanel {
 	// private instance variables for the Board class
 	private static final int NUMPLAYERS = 6;
 	private int numRows = 0;
@@ -584,5 +587,22 @@ public class Board {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		for(int i = 0; i < grid.length; i++) {
+			for(int j = 0; j< grid[0].length; j++) {
+				grid[i][j].draw(32, 31, 3, g);
+			}
+		}
+		for(int i = 0; i < grid.length; i++) {
+			for(int j = 0; j< grid[0].length; j++) {
+				if(grid[i][j].isRoomLabel()) {
+					grid[i][j].drawRoomLabel();
+				}
+			}
+		}
 	}
 }

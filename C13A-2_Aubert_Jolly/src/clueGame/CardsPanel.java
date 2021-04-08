@@ -183,7 +183,7 @@ public class CardsPanel extends JPanel {
 		CardsPanel display = new CardsPanel(cardsList);
 		JFrame frame = new JFrame();  // create the frame 
 		frame.setContentPane(display); // put the panel in the frame
-		frame.setSize(250, 750);  // size the frame
+		frame.setSize(350, 750);  // size the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		
 		

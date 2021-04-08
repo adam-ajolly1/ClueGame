@@ -20,6 +20,7 @@ public class ClueGame extends JFrame {
 		gameBoard.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
 		gameBoard.initialize();
 		
+		
 		// setting up and adding the bottom panel in the south
 		add(gamePanel, BorderLayout.SOUTH);
 		
@@ -30,6 +31,8 @@ public class ClueGame extends JFrame {
 			}
 		}
 		add(cardPanel, BorderLayout.EAST);
+		
+		add(gameBoard, BorderLayout.CENTER);
 		
 		// setting up layout for the window 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
@@ -42,13 +45,7 @@ public class ClueGame extends JFrame {
 
 	public static void main(String[] args) {
 		ClueGame panel = new ClueGame();  // create the panel
-		//JFrame frame = new JFrame();  // create the frame 
-		//frame.setContentPane(panel); // put the panel in the frame
-		//frame.setSize(750, 180);  // size the frame
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-		// test filling in the data
-
-		//frame.setVisible(true);
+		
 
 
 

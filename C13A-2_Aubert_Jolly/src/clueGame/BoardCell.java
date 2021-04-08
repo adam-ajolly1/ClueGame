@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.HashSet;
 
 import experiment.TestBoardCell;
@@ -33,7 +35,7 @@ public class BoardCell {
 		this.col = col;
 	}
 
-	
+
 	// adds a cell to adjacency list of another cell 
 	public void addAdjacency(BoardCell cell) {
 		adjacencyList.add(cell);
@@ -95,7 +97,7 @@ public class BoardCell {
 	public Room getCorrespondingRoom() {
 		return correspondingRoom;
 	}
-	
+
 	//SETTERS
 	public void setCorrespondingRoom(Room correspondingRoom) {
 		this.correspondingRoom = correspondingRoom;
@@ -112,6 +114,10 @@ public class BoardCell {
 	public void setInitial(char initial) {
 		this.initial = initial;
 	}
+	public boolean isRoomLabel() {
+		return roomLabel;
+	}
+
 	public void setRoomLabel(boolean roomLabel) {
 		this.roomLabel = roomLabel;
 	}
@@ -123,5 +129,46 @@ public class BoardCell {
 	}
 	public void setSecretPassage(char secretPassage) {
 		this.secretPassage = secretPassage;
+	}
+
+	public void draw(int width, int height, int offset, Graphics g) {
+		if (this.isRoom && !this.isUnused) {
+			g.setColor(Color.GREEN);
+		}
+		else if (this.isUnused) {
+			g.setColor(Color.BLUE);
+		}
+		else {
+			g.setColor(Color.YELLOW);
+		}
+		g.fillRect(this.col * width, this.row * height, width, height);
+		if (!this.isRoom) {
+			g.setColor(Color.BLACK);
+			g.drawRect(this.col * width, this.row * height, width, height);
+		}
+		
+
+		if (this.isDoorway()) {
+			g.setColor(Color.MAGENTA);
+			switch(this.doordirection) {
+			case UP:
+				g.fillRect(this.col * width, this.row*height, width, 5);
+				break;
+
+
+			case DOWN:
+				g.fillRect(this.col*width, this.row*height + height - 5, width, 5);
+				break;
+
+			case LEFT:
+				g.fillRect(this.col * width, this.row*height, 5, height);
+				break;
+			case RIGHT:
+				g.fillRect(this.col * width + width -5, this.row*height, 5, height);
+				break;
+			}
+		}
+
+
 	}
 }
