@@ -1,7 +1,10 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.HashSet;
 
 import experiment.TestBoardCell;
@@ -141,10 +144,10 @@ public class BoardCell {
 		else {
 			g.setColor(Color.YELLOW);
 		}
-		g.fillRect(this.col * width, this.row * height, width, height);
+		g.fillRect(this.col * width + offset, this.row * height + offset, width, height);
 		if (!this.isRoom) {
 			g.setColor(Color.BLACK);
-			g.drawRect(this.col * width, this.row * height, width, height);
+			g.drawRect(this.col * width + offset, this.row * height + offset, width, height);
 		}
 		
 
@@ -152,23 +155,31 @@ public class BoardCell {
 			g.setColor(Color.MAGENTA);
 			switch(this.doordirection) {
 			case UP:
-				g.fillRect(this.col * width, this.row*height, width, 5);
+				g.fillRect(this.col * width + offset, this.row*height + offset, width, 5);
 				break;
 
 
 			case DOWN:
-				g.fillRect(this.col*width, this.row*height + height - 5, width, 5);
+				g.fillRect(this.col*width + offset, this.row*height + height - 5 + offset, width, 5);
 				break;
 
 			case LEFT:
-				g.fillRect(this.col * width, this.row*height, 5, height);
+				g.fillRect(this.col * width + offset, this.row*height + offset, 5, height);
 				break;
 			case RIGHT:
-				g.fillRect(this.col * width + width -5, this.row*height, 5, height);
+				g.fillRect(this.col * width + width -5 + offset, this.row*height + offset, 5, height);
 				break;
 			}
 		}
 
 
+	}
+
+	public void drawRoomLabel(int width, int height, int offset, Graphics g) {
+		// TODO Auto-generated method stub
+		g.setColor(Color.black);
+		g.setFont(new Font("Arial", Font.BOLD, 16));
+		g.drawString(this.getCorrespondingRoom().getName(), this.col*width + offset, this.row*height+height/2 + offset);
+		
 	}
 }

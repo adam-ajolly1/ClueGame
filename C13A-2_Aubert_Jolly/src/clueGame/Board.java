@@ -251,6 +251,9 @@ public class Board extends JPanel {
 
 			for(int column = 0; column < arr.length; column ++) {
 				BoardCell cell = new BoardCell(row, column);
+				
+				
+				
 				String symbol = arr[column];
 
 				Character initial = symbol.charAt(0);
@@ -288,6 +291,7 @@ public class Board extends JPanel {
 						for (Entry<Room, Character> entry : roomMap.entrySet()) {
 							if(initial.equals(entry.getValue())) {
 								//set the label cell of the room to the current cell.
+								cell.setCorrespondingRoom(entry.getKey());
 								entry.getKey().setLabelCell(cell);
 							}
 						}
@@ -591,18 +595,24 @@ public class Board extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
+		int width = 32;
+		int height = 31;
+		int offset = 3;
 		super.paintComponent(g);
 		for(int i = 0; i < grid.length; i++) {
 			for(int j = 0; j< grid[0].length; j++) {
-				grid[i][j].draw(32, 31, 3, g);
+				grid[i][j].draw(width, height, offset, g);
 			}
 		}
 		for(int i = 0; i < grid.length; i++) {
 			for(int j = 0; j< grid[0].length; j++) {
 				if(grid[i][j].isRoomLabel()) {
-					grid[i][j].drawRoomLabel();
+					grid[i][j].drawRoomLabel(width, height, offset, g);
 				}
 			}
+		}
+		for(Player p: playerList) {
+			p.draw(32, 31, 3, g);
 		}
 	}
 }

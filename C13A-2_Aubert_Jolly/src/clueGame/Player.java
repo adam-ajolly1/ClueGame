@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -75,6 +76,12 @@ public abstract class Player {
 	}
 	public HashSet<Card> getSeenList(){
 		return seenList;
+	}
+
+	public void draw(int width, int height, int offset, Graphics g) {
+		// TODO Auto-generated method stub
+		g.setColor(this.color);
+		g.fillOval(this.column * width + offset, this.row * height + offset, width, height);
 	}
 	
 	
