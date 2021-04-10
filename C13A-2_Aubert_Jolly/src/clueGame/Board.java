@@ -251,9 +251,9 @@ public class Board extends JPanel {
 
 			for(int column = 0; column < arr.length; column ++) {
 				BoardCell cell = new BoardCell(row, column);
-				
-				
-				
+
+
+
 				String symbol = arr[column];
 
 				Character initial = symbol.charAt(0);
@@ -611,8 +611,36 @@ public class Board extends JPanel {
 				}
 			}
 		}
-		for(Player p: playerList) {
-			p.draw(32, 31, 3, g);
-		}
+		Player one = playerList.get(0);
+		this.getCell(2, 0).setOccupied(true);
+		one.setLocation(2, 0);
+		one.draw(32,  31,  3, g);
+
+		Player two = playerList.get(1);
+		this.getCell(10, 0).setOccupied(true);
+		two.setLocation(10, 0);
+		two.draw(32, 31, 3, g);
+
+		Player three = playerList.get(2);
+		this.getCell(18, 15).setOccupied(true);
+		three.setLocation(18, 13);
+		three.draw(32, 31, 3, g);
+
+		Player four = playerList.get(3);
+		this.getCell(9, 19).setOccupied(true);
+		four.setLocation(9, 19);
+		four.draw(32, 31, 3, g);
+
+		Player five = playerList.get(4);
+		this.getCell(0, 12).setOccupied(true);
+		five.setLocation(0, 12);
+		five.draw(32, 31, 3, g);
+
+		Player six = playerList.get(5);
+		this.getCell(0, 9).setOccupied(true);
+		six.setLocation(0, 9);
+		six.draw(32, 31, 3, g);
 	}
 }
+
+
