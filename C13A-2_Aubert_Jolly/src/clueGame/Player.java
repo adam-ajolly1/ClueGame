@@ -9,8 +9,8 @@ import java.util.Random;
 public abstract class Player {
 	private String name;
 	private Color color;
-	protected int row;
-	protected int column;
+	protected int row = 0;
+	protected int column = 0;
 	private HashSet<Card> hand = new HashSet<Card>();
 	private HashSet<Card> seenList = new HashSet<Card>();
 	
@@ -27,7 +27,7 @@ public abstract class Player {
 	
 	@Override
 	public String toString() {
-		return "Player [name=" + name + ", color=" + color + "]";
+		return "Player [row=" + row + ", column=" + column + "]";
 	}
 
 	public String getName() {

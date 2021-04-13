@@ -12,12 +12,12 @@ Room, Brown Building, B
 Space, Unused, K
 Space, Walkway, W
 // people
+Person, Human, #FFA160
 Person, Marvin, #C9576E
 Person, PCJ, #9F57C9
 Person, Marlene, #FFFFFF
 Person, Adam, #57C962
 Person, Katherine, #000000
-Person, Human, #FFA160
 // weapons
 Weapon, Blue Key
 Weapon, Blastercard

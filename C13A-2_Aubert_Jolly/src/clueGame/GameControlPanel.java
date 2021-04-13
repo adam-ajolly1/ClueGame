@@ -2,18 +2,35 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.HashSet;
+import java.util.Random;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class GameControlPanel extends JPanel {
+public class GameControlPanel extends JPanel implements ActionListener {
 	JTextField outName = new JTextField(10);
 	JTextField outRoll = new JTextField(5);
 	JTextField outGuess = new JTextField(20);
 	JTextField outResult  = new JTextField(20);
+	public static boolean hasFinished = true;
+	public static int currPlayerNum = 0;
+	private Player currPlayer;
 	
+	public Player getCurrPlayer() {
+		return currPlayer;
+	}
+
+	public void setCurrPlayer(Player currPlayer) {
+		this.currPlayer = currPlayer;
+	}
+
 	/**
 	 * Constructor for the panel, it does 90% of the work
 	 */
@@ -24,6 +41,7 @@ public class GameControlPanel extends JPanel {
 		add(first, BorderLayout.NORTH);
 		JPanel second = createBottomPanel();
 		add(second, BorderLayout.SOUTH);
+		
 	}
 	
 	// creates the top panel, with the name of the player whose turn it is and the roll #
@@ -42,6 +60,7 @@ public class GameControlPanel extends JPanel {
 		right.add(outRoll, BorderLayout.EAST);
 		JButton makeAccusation = new JButton("Make Accusation");
 		JButton next = new JButton("NEXT!");
+		next.addActionListener(this);
 		topPanel.add(left);
 		topPanel.add(right);
 		topPanel.add(makeAccusation);
@@ -73,7 +92,7 @@ public class GameControlPanel extends JPanel {
 		return bottomPanel;
 	}
 	//help change the displayed text
-	private void setTurn(ComputerPlayer p, int roll) {
+	private void setTurn(Player p, int roll) {
 		outRoll.setText(String.valueOf(roll));
 		outName.setText(p.getName());
 		outName.setBackground(p.getColor());
@@ -108,4 +127,58 @@ public class GameControlPanel extends JPanel {
 
 
 	}
+
+	@Override
+	//if next is clicked
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		//if a player has not finished their turn
+		if (!hasFinished) {
+			System.out.println("You need to finish your turn first.");
+		}
+		else {
+			//get a random number for the roll and set the current player. Set the turn and roll
+			Random rand = new Random() ;
+			currPlayer = Board.getInstance().getPlayerList().get(++currPlayerNum % 6);
+			int roll = rand.nextInt(6) + 1;
+			setTurn(currPlayer, roll);
+			Board.getInstance().calcTargets(Board.getInstance().grid[currPlayer.row][currPlayer.column], roll);
+			HashSet<BoardCell> targets = Board.getInstance().getTargets();
+			
+			// function called unhighlightTargets for once they click on a target OR computer picks one
+			if (currPlayer instanceof HumanPlayer){
+				GameControlPanel.hasFinished = false;
+				for (BoardCell c: targets) {
+					c.setTarget(true);
+				}
+				Board.getInstance().repaint();
+			}
+			if(currPlayer instanceof ComputerPlayer) {
+				// choose a random target
+				Random rand2 = new Random();
+				int randTarget = rand2.nextInt(targets.size());
+				Board.getInstance().grid[currPlayer.getRow()][currPlayer.getColumn()].setOccupied(false);
+				int count = 0;
+				for (BoardCell c: targets) {
+					// gets the BoardCell of the random target
+					if (count++ == randTarget) {
+						currPlayer.setLocation(c.getRow(), c.getCol());
+						c.setOccupied(true);
+						break;
+					}
+				}
+				// repaints the players in the correct location
+				Board.getInstance().repaint();
+				
+				
+			}
+			
+
+			
+		}
+	}
+	
+
+	
+	
 }

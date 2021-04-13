@@ -2,8 +2,12 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashSet;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class ClueGame extends JFrame {
 	// 6 private instance variables:
@@ -44,6 +48,9 @@ public class ClueGame extends JFrame {
 
 
 	public static void main(String[] args) {
+		JFrame frame = new JFrame("Welcome to Clue");
+		frame.setSize(500, 500);
+		JOptionPane.showMessageDialog(frame, "You are the Human. Can you find the solution before the Computer players? ");
 		ClueGame panel = new ClueGame();  // create the panel
 		
 
@@ -51,4 +58,9 @@ public class ClueGame extends JFrame {
 
 
 	}
+
+
+
+
+	
 }

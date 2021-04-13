@@ -2,6 +2,8 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,6 +34,9 @@ public class Board extends JPanel {
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private HashSet<Card> deck = new HashSet<Card>();
 	private Solution theAnswer;
+	public final static int WIDTH = 32;
+	public final static int HEIGHT = 31;
+	public final static int OFFSET = 3;
 
 
 
@@ -43,6 +48,7 @@ public class Board extends JPanel {
 	private static Board theInstance = new Board();
 	public Board() {
 		super();
+		addMouseListener(new clickedBoardListener());
 	}
 
 	// this method returns the only Board
@@ -595,51 +601,156 @@ public class Board extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		int width = 32;
-		int height = 31;
-		int offset = 3;
+		
 		super.paintComponent(g);
 		for(int i = 0; i < grid.length; i++) {
 			for(int j = 0; j< grid[0].length; j++) {
-				grid[i][j].draw(width, height, offset, g);
+				grid[i][j].draw(WIDTH, HEIGHT, OFFSET, g);
 			}
 		}
 		for(int i = 0; i < grid.length; i++) {
 			for(int j = 0; j< grid[0].length; j++) {
 				if(grid[i][j].isRoomLabel()) {
-					grid[i][j].drawRoomLabel(width, height, offset, g);
+					grid[i][j].drawRoomLabel(WIDTH, HEIGHT, OFFSET, g);
 				}
 			}
 		}
 		Player one = playerList.get(0);
-		this.getCell(2, 0).setOccupied(true);
-		one.setLocation(2, 0);
-		one.draw(32,  31,  3, g);
+		if (one.getRow() == 0 && one.getColumn() == 0) {
+			this.getCell(2, 0).setOccupied(true);
+			one.setLocation(2, 0);
+			one.draw(32,  31,  3, g);
+		}
+		else {
+			one.draw(32,  31,  3, g);
+		}
 
 		Player two = playerList.get(1);
-		this.getCell(10, 0).setOccupied(true);
-		two.setLocation(10, 0);
-		two.draw(32, 31, 3, g);
+		if(two.getRow() == 0 && two.getColumn() ==0) {
+			this.getCell(10, 0).setOccupied(true);
+			two.setLocation(10, 0);
+			two.draw(32, 31, 3, g);
+		}
+		else {
+			two.draw(32, 31, 3, g);
+		}
+		
 
 		Player three = playerList.get(2);
-		this.getCell(18, 15).setOccupied(true);
-		three.setLocation(18, 13);
-		three.draw(32, 31, 3, g);
-
+		if(three.getRow() == 0 && three.getColumn() == 0) {
+			this.getCell(18, 15).setOccupied(true);
+			three.setLocation(18, 13);
+		}
+		else {
+			three.draw(32, 31, 3, g);
+		}
+		
 		Player four = playerList.get(3);
-		this.getCell(9, 19).setOccupied(true);
-		four.setLocation(9, 19);
+		if(four.getRow() == 0 && four.getColumn() == 0) {
+			this.getCell(9, 19).setOccupied(true);
+			four.setLocation(9, 19);
+			four.draw(32, 31, 3, g);
+		}
+		else {
 		four.draw(32, 31, 3, g);
+		}
 
 		Player five = playerList.get(4);
-		this.getCell(0, 12).setOccupied(true);
-		five.setLocation(0, 12);
-		five.draw(32, 31, 3, g);
+		if(five.getRow() == 0 && five.getColumn() == 0) {
+			this.getCell(0, 12).setOccupied(true);
+			five.setLocation(0, 12);
+			five.draw(32, 31, 3, g);
+		}
+		else {
+			five.draw(32, 31, 3, g);
+		}
+		
 
 		Player six = playerList.get(5);
-		this.getCell(0, 9).setOccupied(true);
-		six.setLocation(0, 9);
-		six.draw(32, 31, 3, g);
+		if(six.getRow() == 0 && six.getColumn() == 0) {
+			this.getCell(0, 9).setOccupied(true);
+			six.setLocation(0, 9);
+			six.draw(32, 31, 3, g);
+		}
+		else {
+			six.draw(32, 31, 3, g);
+		}
+		
+		
+		
+	}
+	
+	
+	private class clickedBoardListener implements MouseListener {
+			
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// turn is not finished yet
+			GameControlPanel.hasFinished = false;
+			if (Board.getInstance().getPlayerList().get(GameControlPanel.currPlayerNum % 6) instanceof HumanPlayer) {
+				HashSet<BoardCell> targets = Board.getInstance().getTargets();
+				boolean isTarget = false;
+				for (BoardCell c: targets) {
+					//Large "if" statement to see if person clicks on a target
+					if (e.getPoint().getX() > c.getCol() * Board.WIDTH + Board.OFFSET && e.getPoint().getX() < c.getCol() * Board.WIDTH+ Board.OFFSET + Board.WIDTH) {
+						if (e.getPoint().getY() > c.getRow() * Board.HEIGHT + Board.OFFSET && e.getPoint().getY() < c.getRow() * Board.HEIGHT+ Board.OFFSET + Board.HEIGHT) {
+							c.isOccupied = true;
+							Board.getInstance().grid[Board.getInstance().getPlayerList().get(GameControlPanel.currPlayerNum % 6).row][Board.getInstance().getPlayerList().get(GameControlPanel.currPlayerNum % 6).column].setOccupied(false);
+							isTarget = true;
+							Board.getInstance().getPlayerList().get(GameControlPanel.currPlayerNum % 6).setLocation(c.getRow(), c.getCol());
+							if(c.getIsRoom()) {
+								// HANDLE SUGGESTION is commented out so that we don't get nullptr exceptions.
+								//Board.getInstance().handleSuggestion(null, null);
+							}
+							for (BoardCell p: targets) {
+								p.setTarget(false);
+							}
+							// clears target and repaints the board with cyan
+							Board.getInstance().clearTarget();
+							Board.getInstance().repaint();
+							// turn is now finished, can move on 
+							GameControlPanel.hasFinished = true;
+							break;
+						}
+					}
+				}
+				//if the person does not click on a target
+				if (!isTarget) {
+					System.out.println("Error: Not a target");
+				}
+			}
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+
+
+	public void clearTarget() {
+		// TODO Auto-generated method stub
+		this.targets.clear();
 	}
 }
 

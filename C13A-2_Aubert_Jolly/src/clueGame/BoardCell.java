@@ -25,6 +25,15 @@ public class BoardCell {
 	private Room correspondingRoom;
 	boolean isOccupied;
 	boolean isRoom = false;
+	boolean isTarget = false;
+
+	public boolean isTarget() {
+		return isTarget;
+	}
+
+	public void setTarget(boolean isTarget) {
+		this.isTarget = isTarget;
+	}
 
 	// BoardCell default constructor
 	public BoardCell() {
@@ -140,9 +149,12 @@ public class BoardCell {
 		}
 		else if (this.isUnused) {
 			g.setColor(Color.BLUE);
-		}
+		} 
 		else {
 			g.setColor(Color.YELLOW);
+		}
+		if (this.isTarget) {
+			g.setColor(Color.CYAN);
 		}
 		g.fillRect(this.col * width + offset, this.row * height + offset, width, height);
 		if (!this.isRoom) {
