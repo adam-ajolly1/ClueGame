@@ -340,3 +340,351 @@ Author: Katherine Aubert <kaubert@mymail.mines.edu>
 Date:   Fri Feb 26 11:40:22 2021 -0700
 
     Fixed null pointer exception error on board and adjacency list tests
+commit 786a8bc9dcda2a2e3592a959a52a5e88330be1c6
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Mon Apr 12 23:12:18 2021 -0600
+
+    finished working on movement of players within the GUI. All players move and targets are shown
+
+commit 83344e5e1362849416b50aa76af8c7bb9c915c76
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Apr 9 19:25:35 2021 -0600
+
+    Added nicer colors for the players
+
+commit 5adaad74382090dcaea8be20fef1779703f5dfce
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Apr 9 19:14:44 2021 -0600
+
+    Fixed draw players method so that they have starting locations and will be drawn correctly. For the future, we may need to change some colors around so that the players don't blend in with the rooms
+
+commit 18a58af117b6de2444e9cac7d17739e69081ecb4
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Fri Apr 9 17:18:44 2021 -0600
+
+    Noticed we were'nt initializing correspondingRoom, fixed bug. Added labels in Arial font, this can change, added draw method in player class. Players are drawn, but all of them are in the top left corner, unsure where to initialize the player's starting location
+
+commit 5fdce6f0883a3a388c59035197196d47347438c2
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Thu Apr 8 17:32:37 2021 -0600
+
+    Worked on the GUI for the actual gameBoard. Added doors. NExt we will add labels for each of the rooms.
+
+commit 18f1ce733837f38a43ab068535a5f5b52ad2f545
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Tue Apr 6 10:48:10 2021 -0600
+
+    added side panel, new bug: not adding 'none' panel
+
+commit f758b38ccc570059771a3d36258ffa0b9ad4f4c0
+Merge: c71a402 e9426f9
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Tue Apr 6 10:35:39 2021 -0600
+
+    Merge branch 'master' of https://github.com/adam-ajolly1/ClueGame
+
+commit c71a4024facf8bd7156150cda5a5cf0ce967b053
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Tue Apr 6 10:35:23 2021 -0600
+
+    added bottom gamePanel
+
+commit e9426f9f64b55428599084d02852db31e7cac4fd
+Merge: 5e2827e 24698b8
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Tue Apr 6 10:12:55 2021 -0600
+
+    Merge branch 'master' of https://github.com/adam-ajolly1/ClueGame
+
+commit 5e2827e0b4ea395f9e7b98578121ac162ae24494
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Tue Apr 6 10:12:40 2021 -0600
+
+    Test commit
+
+commit 5caf1efb8de2c9cc7ad1540698c44a94af98bfa7
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Tue Apr 6 10:08:59 2021 -0600
+
+    Testing commit
+
+commit 24698b80204ffa51456f051b96a3cc6342b1c919
+Merge: 5c9d0e8 d6e6aa4
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Tue Apr 6 10:04:55 2021 -0600
+
+    Merge branch 'master' of https://github.com/adam-ajolly1/ClueGame
+
+commit 5c9d0e815d0272bccd5f2df85f4a97bfcb35cc75
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Tue Apr 6 10:01:27 2021 -0600
+
+    added ClueGame class
+
+commit d6e6aa4aa54e33e7c200e1ad59b1cc7df3418f67
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Apr 5 23:20:42 2021 -0600
+
+    Finished up adding people / weapons / rooms panel and made functions so that you can add smoothly to them. We pair programmed on this one too and Adam has a git issue!
+
+commit 302799f70a98080bce252c40c7a34263c7972569
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Mon Apr 5 23:18:37 2021 -0600
+
+    created side panel and added color for each card that would be seen
+
+commit e5241b91c2280bb7107920fb740674c7c585756d
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Apr 5 22:20:33 2021 -0600
+
+    Starting adding panels for seen people / weapons / rooms
+
+commit b008acd7611d56b3a07159c5a71bfde0ce2b3a6b
+Merge: b0330a6 3456683
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Mon Apr 5 21:52:51 2021 -0600
+
+    Merge branch 'master' of https://github.com/adam-ajolly1/ClueGame
+
+commit b0330a66a4fc6ef589033517a176fa487f5df50c
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Mon Apr 5 17:42:02 2021 -0600
+
+    started working on the side panel display
+
+commit 345668389112f3baae48c6e15052668866e50869
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Apr 5 17:12:16 2021 -0600
+
+    Added functional GameControlPanel for C21A-1. We pair programmed, so there was only one commit!
+
+commit 37c6691edb182e9c878b4063f401d02e6791a8aa
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Apr 5 10:23:12 2021 -0600
+
+    Added C20 zip file
+
+commit 3c984d1aca970452715ae7015572526ca85b4918
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Sun Mar 28 23:48:36 2021 -0600
+
+    Added a lil comment
+
+commit 423a7c3f49b86baf5139a7be14c581c404c55c67
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Sun Mar 28 23:45:27 2021 -0600
+
+    Deleted a print statement in Board ... oopsie :P
+
+commit 976c6a45a97b0a56f9a2be73bf556a08a77d2829
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Sun Mar 28 23:44:00 2021 -0600
+
+    Added Computer AI creating suggestions as well as selecting targets, methods and tests for both of these.
+
+commit 3921193c427b9bdbb2db1eb708621191e869b1fc
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Sun Mar 28 21:15:59 2021 -0600
+
+    Added tests, methods, and refactor for check accusation, player disproves suggestion, and handling suggestions
+
+commit 52f7fa8d421b6f714a2216ee0a765acbb399061c
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Thu Mar 25 16:05:07 2021 -0600
+
+    Trying to push some mysteriously untracked files
+
+commit d207b409290a93d5bd0e334354f8035b8918f430
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Thu Mar 25 15:59:06 2021 -0600
+
+    Fixed changes where the human player was not getting added to the playerList
+
+commit ca2411e84a18523dda72f94cf1977e0e4430f3e3
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Tue Mar 16 10:41:40 2021 -0600
+
+    Refactored by commenting our code, adding clarity to variable names, and changing layout to be constructor -> setters -> getters. Also switced a few if/else statements to be switch statements.
+
+commit 5e1b338f8136d37722c9568df4db93e97e0e76a7
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Mar 12 21:13:08 2021 -0700
+
+    added up to date git log
+
+commit f33f7e58b08e39ea22fbac304553e14d9578a4d8
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Mar 12 21:11:42 2021 -0700
+
+    Made 306 tests pass
+
+commit d878ad511a31c62e117bf1b3b7cb33d74cb517c4
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Mar 12 20:39:12 2021 -0700
+
+    A zip file from one of our past assignments that I'll just push for fun ;)
+
+commit 4595fd33c75facf46d2e2c8fdff251241a22c9f2
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Mar 12 20:38:24 2021 -0700
+
+    All tests now pass, including occupied, and targets at door. NOTE: WE DID THIS ALL VIA PAIR PROGRAMMING. My computer is just set up better to push, so I am the one that is doing it most often.
+
+commit 00ea63a7d51b14b802e2c004bba3e665a34d1732
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Mar 12 16:31:48 2021 -0700
+
+    Finished testAdjacencyWalkways to pass!
+
+commit 880234eafcfb196078d7ce9ae60d6e56e1976112
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Mar 12 15:10:27 2021 -0700
+
+    Modified some comments for code review
+
+commit 8ab9c9c2ddbb86cf38cd3ac838269dbf8f0eeac5
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Wed Mar 10 12:12:13 2021 -0700
+
+    All door adjacency tests pass :)
+
+commit d5a65c62c25387700f42bbbdc0a58c13bcea1177
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Sat Mar 6 23:18:28 2021 -0700
+
+    Did some refactoring, changed some variable names as well as some functions
+
+commit 2c53c2891e26a531bd8130de9bf6296e3d2dc0d6
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Sat Mar 6 22:02:22 2021 -0700
+
+    finished up all tests including exception tests, and now everything works when run together. Had to initialize every cell within grid or else it would remember the grid in between runs.
+
+commit e7b2786e62a077704aa43705af814fd76807a8d2
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Sat Mar 6 21:21:22 2021 -0700
+
+    This was the file that actually changed and modified the tests! Previous commit error.
+
+commit 07595a3304f7c661487ca0f1614c0fd772d13a3d
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Sat Mar 6 21:20:19 2021 -0700
+
+    Added new tests to BoardAdjTargetTest to ensure that targets and occupied spaces were calculated properly
+
+commit 178106d66928b74f949f70c0dc37e15e3356a85f
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Fri Mar 5 23:37:01 2021 -0700
+
+    added a getter for roomMap within board.java to try to debug. also changed main Board object in FileInitTests.java to board2 to try and debug. no luck yet
+
+commit 54df85e082a9969c657731648b2af65e7e649551
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Mar 5 18:48:51 2021 -0700
+
+    Started working on adjacency and target tests, and changed some things about Board and BoardCell to make it work
+
+commit cfda6ac238d689d8385c5f10f3acc43afd50c0c1
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Fri Mar 5 16:12:24 2021 -0700
+
+    started working on exceptions
+
+commit 39b0d021803fed1f2633ca05c5e36a959a60a246
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Fri Mar 5 15:22:47 2021 -0700
+
+    all tests work now, had to move all data files to the main file because I did not know how to change the data path. Made some adjustments to FileInitTests.java. I think the cell were not right. Top left is 0,0. Added boolean doorWay to BoardCell.java.
+
+commit a55d57144e395ef3ed288bf05e1c080fbd06726e
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Fri Mar 5 13:37:17 2021 -0700
+
+    added constructor with name parameter in Room.java, Generated default constructor within Room.java, added try, catch lines within loadLayoutConfig
+
+commit dd7ca5cc3bd8eee841ff558134ed5875610578d6
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Mar 5 11:23:34 2021 -0700
+
+    - fixed FileInitTests to make them not error (yet)
+    - added Room constructor and setters
+    - added constructors for BadConfigFormatException
+    - added throws clauses to multiple methods in Board
+
+commit a5b817af10a7b8f840636449e7f79db041d9ed0f
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Thu Mar 4 14:42:26 2021 -0700
+
+    Finished loadLayoutConfig and also started working on LoadSetupConfig. Also fixed some items in BoardCell to match TestBoardCell.
+
+commit ff8ffc7adeadb77cefa868200acadf11b370fc82
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Thu Mar 4 10:44:37 2021 -0700
+
+    Started working on load config files, specifically load layout file.
+
+commit 6b9676c1cf7b745fa7a41121a67bb11a0d457893
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Tue Mar 2 10:31:22 2021 -0700
+
+    Fixed null pointer exceptions in BoardTestsExp and refactored
+
+commit 91fec4e6ebee83b4458906b84cb7c7775469191a
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 23:53:10 2021 -0700
+
+    Added test files
+
+commit 8f04434e8c64069552730b37db5e912ca2c650f1
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 23:52:14 2021 -0700
+
+    added gitlog
+
+commit d87ac858237f05e6e8cd70e242238e68752325b2
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 23:51:42 2021 -0700
+
+    adding data file
+
+commit 6669ec0f9f35f536f3972ba4c2db71661cfd1a72
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 23:49:26 2021 -0700
+
+    Trying again bc idk if the last one worked
+
+commit 001acbd21b1d9901bd7b0506d86f369fecb182a9
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 23:44:53 2021 -0700
+
+    Modified the file init test to be personal to our game, as well as added instance variables, constructors, and methods to clueGame. NOTE: This was done via pair programming on Saros, but Adam had a problem with his Git/computer and therefore I have been the only one pushing.
+
+commit 109ae0f08dce4c50cf3e267b82c1b727af7d56b9
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 22:24:47 2021 -0700
+
+    added data folder and tests for clueGame package for C13A-2
+
+commit 6944ecde3f8a302474d0b8d55b2a18a4c458fb15
+Author: adam-ajolly1 <ajolly@mymail.mines.edu>
+Date:   Mon Mar 1 22:07:57 2021 -0700
+
+    Worked more on the CalcTargets() function
+
+commit 337fde028a473682a9dd45afd80d427fc788457d
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Mon Mar 1 21:16:04 2021 -0700
+
+    Added methods to create adjacency lists
+
+commit b01169acbcbd966045f59098b18cfb078e328e16
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Feb 26 11:46:31 2021 -0700
+
+    test commit
+
+commit 6ac3dc1ee6061c117435a8b9e03071d6838c251b
+Author: Katherine Aubert <kaubert@mymail.mines.edu>
+Date:   Fri Feb 26 11:40:22 2021 -0700
+
+    Fixed null pointer exception error on board and adjacency list tests

@@ -155,20 +155,33 @@ public class GameControlPanel extends JPanel implements ActionListener {
 			}
 			if(currPlayer instanceof ComputerPlayer) {
 				// choose a random target
+				// implement handle and create suggestion
 				Random rand2 = new Random();
 				int randTarget = rand2.nextInt(targets.size());
 				Board.getInstance().grid[currPlayer.getRow()][currPlayer.getColumn()].setOccupied(false);
 				int count = 0;
 				for (BoardCell c: targets) {
 					// gets the BoardCell of the random target
+					// need to say if its a room, go to that room and not a random target
 					if (count++ == randTarget) {
 						currPlayer.setLocation(c.getRow(), c.getCol());
 						c.setOccupied(true);
 						break;
 					}
 				}
+				BoardCell newLocation = Board.getInstance().grid[currPlayer.getRow()][currPlayer.getColumn()];
+				if(newLocation.isRoom) {
+					
+					Solution suggestion = currPlayer.createSuggestion(Board.getInstance().roomToCard(newLocation.getCorrespondingRoom()));
+					outGuess.setText(suggestion.toString());
+				}
+				
+				
+				
 				// repaints the players in the correct location
 				Board.getInstance().repaint();
+				
+				
 				
 				
 			}

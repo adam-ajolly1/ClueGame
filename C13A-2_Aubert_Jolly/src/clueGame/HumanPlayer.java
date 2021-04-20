@@ -9,4 +9,12 @@ public class HumanPlayer extends Player {
 		// TODO Auto-generated constructor stub
 	}
 
+
+
+	@Override
+	protected Solution createSuggestion(Card correspondingRoom) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

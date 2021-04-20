@@ -83,6 +83,8 @@ public abstract class Player {
 		g.setColor(this.color);
 		g.fillOval(this.column * width + offset, this.row * height + offset, width, height);
 	}
+
+	protected abstract Solution createSuggestion(Card correspondingRoom);
 	
 	
 	

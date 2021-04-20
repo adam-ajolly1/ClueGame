@@ -42,6 +42,13 @@ public class Solution {
 		this.person = person;
 		this.weapon = weapon;
 	}
+
+
+	@Override
+	public String toString() {
+		String pretty = person + " in the " + room + " with the " + weapon;
+		return pretty;
+	}
 	
 	
 }

@@ -574,6 +574,27 @@ public class Board extends JPanel {
 	}
 	public Card handleSuggestion(Solution suggestion, Player p) {
 		Card toReturn = new Card();
+		// moves player of suggestion into room
+		Card PlayerToMove = suggestion.getPerson();
+		Card roomSuggestion = suggestion.getRoom();
+		
+		Player move = null;
+		for(Player x: this.playerList) {
+			if(x.getName() == PlayerToMove.getCardName()) {
+				move = x;
+				break;
+			}
+		}
+		Room r = null;
+		for (Entry<Room, Character> entry : roomMap.entrySet()) {
+			if (entry.getKey().getName() == roomSuggestion.getCardName()) {
+				r = entry.getKey();
+				break;
+			}
+		}
+		this.grid[move.getRow()][move.getColumn()].setOccupied(false);
+		move.setLocation(r.getCenterCell().getRow(), r.getCenterCell().getCol());
+		
 		// iterates over player list and disproves suggestion, continuing 
 		// if the player is the suggesting player. 
 		for(Player x: this.playerList) {
@@ -601,7 +622,7 @@ public class Board extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		
+
 		super.paintComponent(g);
 		for(int i = 0; i < grid.length; i++) {
 			for(int j = 0; j< grid[0].length; j++) {
@@ -634,7 +655,7 @@ public class Board extends JPanel {
 		else {
 			two.draw(32, 31, 3, g);
 		}
-		
+
 
 		Player three = playerList.get(2);
 		if(three.getRow() == 0 && three.getColumn() == 0) {
@@ -644,7 +665,7 @@ public class Board extends JPanel {
 		else {
 			three.draw(32, 31, 3, g);
 		}
-		
+
 		Player four = playerList.get(3);
 		if(four.getRow() == 0 && four.getColumn() == 0) {
 			this.getCell(9, 19).setOccupied(true);
@@ -652,7 +673,7 @@ public class Board extends JPanel {
 			four.draw(32, 31, 3, g);
 		}
 		else {
-		four.draw(32, 31, 3, g);
+			four.draw(32, 31, 3, g);
 		}
 
 		Player five = playerList.get(4);
@@ -664,7 +685,7 @@ public class Board extends JPanel {
 		else {
 			five.draw(32, 31, 3, g);
 		}
-		
+
 
 		Player six = playerList.get(5);
 		if(six.getRow() == 0 && six.getColumn() == 0) {
@@ -675,14 +696,10 @@ public class Board extends JPanel {
 		else {
 			six.draw(32, 31, 3, g);
 		}
-		
-		
-		
 	}
-	
-	
+
 	private class clickedBoardListener implements MouseListener {
-			
+
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// turn is not finished yet
@@ -724,27 +741,27 @@ public class Board extends JPanel {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 	}
 
 
