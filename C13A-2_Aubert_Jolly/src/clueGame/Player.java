@@ -52,6 +52,9 @@ public abstract class Player {
 	public int getColumn() {
 		return column;
 	}
+	public BoardCell getLocation() {
+		return Board.getInstance().getCell(row, column);
+	}
 	
 	public HashSet<Card> getHand() {
 		return hand;

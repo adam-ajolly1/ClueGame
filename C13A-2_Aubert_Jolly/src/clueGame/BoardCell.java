@@ -22,7 +22,7 @@ public class BoardCell {
 	private char secretPassage = 'a';
 	private DoorDirection doordirection = DoorDirection.NONE;
 	private boolean doorWay;
-	private Room correspondingRoom;
+	private Room correspondingRoom = null;
 	boolean isOccupied;
 	boolean isRoom = false;
 	boolean isTarget = false;

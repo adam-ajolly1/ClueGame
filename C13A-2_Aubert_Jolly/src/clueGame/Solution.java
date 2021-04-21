@@ -46,7 +46,7 @@ public class Solution {
 
 	@Override
 	public String toString() {
-		String pretty = person + " in the " + room + " with the " + weapon;
+		String pretty = person.getCardName() + " in the " + room.getCardName() + " with the " + weapon.getCardName();
 		return pretty;
 	}
 	

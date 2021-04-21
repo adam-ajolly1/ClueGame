@@ -288,6 +288,13 @@ public class Board extends JPanel {
 								entry.getKey().setCenterCell(cell);
 							}
 						}
+						for (Entry<Room, Character> entry : roomMap.entrySet()) {
+							if(initial.equals(entry.getValue())) {
+								//set the label cell of the room to the current cell.
+								cell.setCorrespondingRoom(entry.getKey());
+								entry.getKey().setLabelCell(cell);
+							}
+						}
 						break;
 					case '#':
 						cell.setRoomLabel(true);
@@ -577,7 +584,7 @@ public class Board extends JPanel {
 		// moves player of suggestion into room
 		Card PlayerToMove = suggestion.getPerson();
 		Card roomSuggestion = suggestion.getRoom();
-		
+
 		Player move = null;
 		for(Player x: this.playerList) {
 			if(x.getName() == PlayerToMove.getCardName()) {
@@ -594,7 +601,7 @@ public class Board extends JPanel {
 		}
 		this.grid[move.getRow()][move.getColumn()].setOccupied(false);
 		move.setLocation(r.getCenterCell().getRow(), r.getCenterCell().getCol());
-		
+
 		// iterates over player list and disproves suggestion, continuing 
 		// if the player is the suggesting player. 
 		for(Player x: this.playerList) {
@@ -618,10 +625,13 @@ public class Board extends JPanel {
 			}
 		}
 		return null;
+
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
+		
+		int defaultOffset = 3;
 
 		super.paintComponent(g);
 		for(int i = 0; i < grid.length; i++) {
@@ -643,7 +653,12 @@ public class Board extends JPanel {
 			one.draw(32,  31,  3, g);
 		}
 		else {
-			one.draw(32,  31,  3, g);
+			if(one.getLocation().isRoomCenter()) {
+				one.draw(32,  31,  0, g);
+			}
+			else {
+				one.draw(32,  31, defaultOffset, g);
+			}
 		}
 
 		Player two = playerList.get(1);
@@ -653,7 +668,12 @@ public class Board extends JPanel {
 			two.draw(32, 31, 3, g);
 		}
 		else {
-			two.draw(32, 31, 3, g);
+			if(two.getLocation().isRoomCenter()) {
+				two.draw(32,  31,  3, g);
+			}
+			else {
+				two.draw(32,  31, defaultOffset, g);
+			}
 		}
 
 
@@ -663,9 +683,13 @@ public class Board extends JPanel {
 			three.setLocation(18, 13);
 		}
 		else {
-			three.draw(32, 31, 3, g);
+			if(three.getLocation().isRoomCenter()) {
+				three.draw(32,  31,  6, g);
+			}
+			else {
+				three.draw(32,  31, defaultOffset, g);
+			}
 		}
-
 		Player four = playerList.get(3);
 		if(four.getRow() == 0 && four.getColumn() == 0) {
 			this.getCell(9, 19).setOccupied(true);
@@ -673,7 +697,13 @@ public class Board extends JPanel {
 			four.draw(32, 31, 3, g);
 		}
 		else {
-			four.draw(32, 31, 3, g);
+			if(four.getLocation().isRoomCenter()) {
+				//defaultOffset = 5;
+				four.draw(32,  31,  9, g);
+			}
+			else {
+				four.draw(32,  31, defaultOffset, g);
+			}
 		}
 
 		Player five = playerList.get(4);
@@ -683,7 +713,13 @@ public class Board extends JPanel {
 			five.draw(32, 31, 3, g);
 		}
 		else {
-			five.draw(32, 31, 3, g);
+			if(five.getLocation().isRoomCenter()) {
+				//defaultOffset = 5;
+				five.draw(32,  31,  12, g);
+			}
+			else {
+				five.draw(32,  31, defaultOffset, g);
+			}
 		}
 
 
@@ -694,7 +730,13 @@ public class Board extends JPanel {
 			six.draw(32, 31, 3, g);
 		}
 		else {
-			six.draw(32, 31, 3, g);
+			if(six.getLocation().isRoomCenter()) {
+				//defaultOffset = 5;
+				six.draw(32,  31,  15, g);
+			}
+			else {
+				six.draw(32,  31, defaultOffset, g);
+			}
 		}
 	}
 

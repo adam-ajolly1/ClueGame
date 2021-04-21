@@ -119,7 +119,7 @@ public class GameControlPanel extends JPanel implements ActionListener {
 		
 		//change displayed names and guess status
 		panel.setTurn(new ComputerPlayer( "Miss Scarlet", 0, 0, Color.RED), 5);
-		panel.setGuess( "I have no guess!");
+		//panel.setGuess( "I have no guess!");
 		panel.setGuessResult( "So you have nothing?");
 		frame.setVisible(true);
 		
@@ -131,6 +131,8 @@ public class GameControlPanel extends JPanel implements ActionListener {
 	@Override
 	//if next is clicked
 	public void actionPerformed(ActionEvent e) {
+		this.setGuess(" ");
+		Board.getInstance().repaint();
 		// TODO Auto-generated method stub
 		//if a player has not finished their turn
 		if (!hasFinished) {
@@ -170,10 +172,27 @@ public class GameControlPanel extends JPanel implements ActionListener {
 					}
 				}
 				BoardCell newLocation = Board.getInstance().grid[currPlayer.getRow()][currPlayer.getColumn()];
-				if(newLocation.isRoom) {
+				System.out.println(newLocation);
+				if(newLocation.getIsRoom()) {
 					
 					Solution suggestion = currPlayer.createSuggestion(Board.getInstance().roomToCard(newLocation.getCorrespondingRoom()));
-					outGuess.setText(suggestion.toString());
+					
+					// moves the player that was suggested into that room
+					Card playerToMove = suggestion.getPerson();
+					Player playerMove = null;
+					
+					for (Player p: Board.getInstance().getPlayerList()) {
+						System.out.println(p.getName());
+						System.out.println(playerToMove.getCardName());
+						if (playerToMove.getCardName().contentEquals(p.getName()))
+						{
+							playerMove = p;
+						}
+					}
+					Board.getInstance().grid[playerMove.getRow()][playerMove.getColumn()].setOccupied(false);
+					playerMove.setLocation(currPlayer.getRow(), currPlayer.getColumn());
+					Board.getInstance().grid[playerMove.getRow()][playerMove.getColumn()].setOccupied(true);
+					this.setGuess(suggestion.toString());
 				}
 				
 				
