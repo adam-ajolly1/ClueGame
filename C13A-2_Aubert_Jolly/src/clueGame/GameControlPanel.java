@@ -154,6 +154,7 @@ public class GameControlPanel extends JPanel implements ActionListener {
 					c.setTarget(true);
 				}
 				Board.getInstance().repaint();
+				
 			}
 			if(currPlayer instanceof ComputerPlayer) {
 				// choose a random target
@@ -162,15 +163,22 @@ public class GameControlPanel extends JPanel implements ActionListener {
 				int randTarget = rand2.nextInt(targets.size());
 				Board.getInstance().grid[currPlayer.getRow()][currPlayer.getColumn()].setOccupied(false);
 				int count = 0;
+				BoardCell finalTarget = null;
 				for (BoardCell c: targets) {
 					// gets the BoardCell of the random target
 					// need to say if its a room, go to that room and not a random target
+					if (c.getIsRoom() && (currPlayer.getRow() != c.getRow() && currPlayer.getColumn() != c.getCol())) {
+						finalTarget = c;
+						break;
+					}
 					if (count++ == randTarget) {
-						currPlayer.setLocation(c.getRow(), c.getCol());
-						c.setOccupied(true);
+						finalTarget = c;
+
 						break;
 					}
 				}
+				currPlayer.setLocation(finalTarget.getRow(), finalTarget.getCol());
+				finalTarget.setOccupied(true);
 				BoardCell newLocation = Board.getInstance().grid[currPlayer.getRow()][currPlayer.getColumn()];
 				System.out.println(newLocation);
 				if(newLocation.getIsRoom()) {

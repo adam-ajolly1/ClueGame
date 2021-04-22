@@ -1,7 +1,9 @@
 package clueGame;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
@@ -16,7 +18,12 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTextField;
 
 import experiment.TestBoardCell;
 
@@ -759,7 +766,7 @@ public class Board extends JPanel {
 							Board.getInstance().getPlayerList().get(GameControlPanel.currPlayerNum % 6).setLocation(c.getRow(), c.getCol());
 							if(c.getIsRoom()) {
 								// HANDLE SUGGESTION is commented out so that we don't get nullptr exceptions.
-								//Board.getInstance().handleSuggestion(null, null);
+								Solution humanSuggestion = paintSuggestionBox(c.getCorrespondingRoom());
 							}
 							for (BoardCell p: targets) {
 								p.setTarget(false);
@@ -811,6 +818,52 @@ public class Board extends JPanel {
 		// TODO Auto-generated method stub
 		this.targets.clear();
 	}
+	public Solution paintSuggestionBox(Room r) {
+		Solution ans = null;
+		JFrame frame = new JFrame("Make a Suggestion");
+		frame.setSize(500, 350);
+		frame.setLayout(new GridLayout(4,2));
+		JTextField roomText = new JTextField("Current room");
+		frame.add(roomText);
+		JTextField roomName = new JTextField(r.getName());
+		frame.add(roomName);
+		JTextField personText = new JTextField("Person");
+		frame.add(personText);
+		
+		String[] people = new String[this.playerList.size()];
+		int index = 0;
+		for(Player x: this.playerList) {
+			people[index] = x.getName();
+			index ++;
+		}
+		JComboBox<String> personDropDown = new JComboBox<String>(people);
+		frame.add(personDropDown);
+		
+		JTextField weaponText = new JTextField("Weapon");
+		frame.add(weaponText);
+		String[] weapons = new String[6];
+		int weaponIndex = 0;
+		for(Card x: this.deck) {
+			if(x.getCardType() == CardType.WEAPON) {
+				weapons[weaponIndex] = x.getCardName();
+				weaponIndex ++;
+			}
+		}
+		JComboBox<String> weaponDropDown = new JComboBox<String>(weapons);
+		frame.add(weaponDropDown);
+		
+		JButton submit = new JButton("Submit");
+		frame.add(submit);
+		JButton cancel = new JButton("Cancel");
+		frame.add(cancel);
+		
+		
+		
+		//JComboBox<String> cb = new JComboBox<String>(choices);
+		frame.setVisible(true);
+		return ans;
+	}
 }
+
 
 
