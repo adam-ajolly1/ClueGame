@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
@@ -27,7 +29,7 @@ import javax.swing.JTextField;
 
 import experiment.TestBoardCell;
 
-public class Board extends JPanel {
+public class Board extends JPanel implements ActionListener {
 	// private instance variables for the Board class
 	private static final int NUMPLAYERS = 6;
 	private int numRows = 0;
@@ -44,8 +46,13 @@ public class Board extends JPanel {
 	public final static int WIDTH = 32;
 	public final static int HEIGHT = 31;
 	public final static int OFFSET = 3;
+	private JComboBox<String> weaponDropDown = new JComboBox();
 
 
+
+	public JComboBox<String> getWeaponDropDown() {
+		return weaponDropDown;
+	}
 
 	public Solution getTheAnswer() {
 		return theAnswer;
@@ -508,6 +515,9 @@ public class Board extends JPanel {
 
 	public void findAllTargets(BoardCell thisCell, int numSteps) {
 		//for every cell next to thisCell
+		if (thisCell.isRoomCenter()) {
+			targets.add(thisCell);
+		}
 		for(BoardCell c: thisCell.getAdjList()) {
 			//if it is a room center, or has been visited, or is occupied
 			if(visited.contains(c) || (c.getIsOccupied() && !c.isRoomCenter())) {
@@ -766,7 +776,10 @@ public class Board extends JPanel {
 							Board.getInstance().getPlayerList().get(GameControlPanel.currPlayerNum % 6).setLocation(c.getRow(), c.getCol());
 							if(c.getIsRoom()) {
 								// HANDLE SUGGESTION is commented out so that we don't get nullptr exceptions.
+								
 								Solution humanSuggestion = paintSuggestionBox(c.getCorrespondingRoom());
+							} else {
+								GameControlPanel.hasFinished = true;
 							}
 							for (BoardCell p: targets) {
 								p.setTarget(false);
@@ -775,7 +788,6 @@ public class Board extends JPanel {
 							Board.getInstance().clearTarget();
 							Board.getInstance().repaint();
 							// turn is now finished, can move on 
-							GameControlPanel.hasFinished = true;
 							break;
 						}
 					}
@@ -818,9 +830,10 @@ public class Board extends JPanel {
 		// TODO Auto-generated method stub
 		this.targets.clear();
 	}
+	JFrame frame = new JFrame("Make a Suggestion");
 	public Solution paintSuggestionBox(Room r) {
 		Solution ans = null;
-		JFrame frame = new JFrame("Make a Suggestion");
+		
 		frame.setSize(500, 350);
 		frame.setLayout(new GridLayout(4,2));
 		JTextField roomText = new JTextField("Current room");
@@ -836,7 +849,7 @@ public class Board extends JPanel {
 			people[index] = x.getName();
 			index ++;
 		}
-		JComboBox<String> personDropDown = new JComboBox<String>(people);
+		personDropDown = new JComboBox<String>(people);
 		frame.add(personDropDown);
 		
 		JTextField weaponText = new JTextField("Weapon");
@@ -849,12 +862,14 @@ public class Board extends JPanel {
 				weaponIndex ++;
 			}
 		}
-		JComboBox<String> weaponDropDown = new JComboBox<String>(weapons);
+		weaponDropDown = new JComboBox<String>(weapons);
 		frame.add(weaponDropDown);
 		
 		JButton submit = new JButton("Submit");
+		submit.addActionListener(this);
 		frame.add(submit);
 		JButton cancel = new JButton("Cancel");
+		cancel.addActionListener(this);
 		frame.add(cancel);
 		
 		
@@ -863,7 +878,45 @@ public class Board extends JPanel {
 		frame.setVisible(true);
 		return ans;
 	}
+	private JComboBox<String> personDropDown = new JComboBox();
+	
+	public JComboBox<String> getPersonDropDown() {
+		return personDropDown;
+	}
+
+	@Override
+	//if next is clicked
+	//handle when submit or cancel are clicked when the human player is making a suggestion.
+	public void actionPerformed(ActionEvent e) {
+		//if the button pressed is submit
+		if (e.getActionCommand().equals("Submit")) {
+			//set the current player
+			HumanPlayer currPlayer = (HumanPlayer) Board.getInstance().getPlayerList().get(GameControlPanel.currPlayerNum % 6);
+			//get the suggestion from the drop down menus
+			currPlayer.setPersonSuggestion((String) this.personDropDown.getSelectedItem());
+			currPlayer.setWeaponSuggestion((String) this.weaponDropDown.getSelectedItem());
+			//find the current room from the current player's location
+			Room playerRoom = this.grid[currPlayer.getRow()][currPlayer.getColumn()].getCorrespondingRoom();
+			Card correspondingRoom = this.roomToCard(playerRoom);
+			//set the guess in the game control panel using create suggestion in Human Player
+			GameControlPanel.setGuess(currPlayer.createSuggestion(correspondingRoom).toString());
+			//finish the Human players turn
+			GameControlPanel.hasFinished = true;
+			
+			//hide suggestion frame and clear it.
+			frame.setVisible(false);
+			frame = new JFrame("Make a suggestion");
+		} else if(e.getActionCommand().equals("Cancel")) {
+			//finish player's turn
+			GameControlPanel.hasFinished = true;
+			
+			//hide suggestion fram and clear it.
+			frame.setVisible(false);
+			frame = new JFrame("Make a suggestion");
+		}
+	}
 }
+
 
 
 

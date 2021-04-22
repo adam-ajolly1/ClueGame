@@ -17,7 +17,7 @@ import javax.swing.border.TitledBorder;
 public class GameControlPanel extends JPanel implements ActionListener {
 	JTextField outName = new JTextField(10);
 	JTextField outRoll = new JTextField(5);
-	JTextField outGuess = new JTextField(20);
+	static JTextField outGuess = new JTextField(20);
 	JTextField outResult  = new JTextField(20);
 	public static boolean hasFinished = true;
 	public static int currPlayerNum = 0;
@@ -97,7 +97,7 @@ public class GameControlPanel extends JPanel implements ActionListener {
 		outName.setText(p.getName());
 		outName.setBackground(p.getColor());
 	}
-	private void setGuess(String guess) {
+	public static void setGuess(String guess) {
 		outGuess.setText(guess);
 	}
 	private void setGuessResult(String result) {
@@ -151,8 +151,10 @@ public class GameControlPanel extends JPanel implements ActionListener {
 			if (currPlayer instanceof HumanPlayer){
 				GameControlPanel.hasFinished = false;
 				for (BoardCell c: targets) {
+					System.out.println(c);
 					c.setTarget(true);
 				}
+				
 				Board.getInstance().repaint();
 				
 			}
@@ -180,7 +182,6 @@ public class GameControlPanel extends JPanel implements ActionListener {
 				currPlayer.setLocation(finalTarget.getRow(), finalTarget.getCol());
 				finalTarget.setOccupied(true);
 				BoardCell newLocation = Board.getInstance().grid[currPlayer.getRow()][currPlayer.getColumn()];
-				System.out.println(newLocation);
 				if(newLocation.getIsRoom()) {
 					
 					Solution suggestion = currPlayer.createSuggestion(Board.getInstance().roomToCard(newLocation.getCorrespondingRoom()));
@@ -190,8 +191,6 @@ public class GameControlPanel extends JPanel implements ActionListener {
 					Player playerMove = null;
 					
 					for (Player p: Board.getInstance().getPlayerList()) {
-						System.out.println(p.getName());
-						System.out.println(playerToMove.getCardName());
 						if (playerToMove.getCardName().contentEquals(p.getName()))
 						{
 							playerMove = p;
