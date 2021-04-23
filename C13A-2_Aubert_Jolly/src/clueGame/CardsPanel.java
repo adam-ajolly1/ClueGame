@@ -12,9 +12,9 @@ import javax.swing.border.TitledBorder;
 
 public class CardsPanel extends JPanel {
 	// creates JPanels as instance variables so they can be modified within main 
-	JPanel seenWeapon = new JPanel();
-	JPanel seenPerson = new JPanel();
-	JPanel seenRoom = new JPanel();
+	static JPanel seenWeapon = new JPanel();
+	static JPanel seenPerson = new JPanel();
+	static JPanel seenRoom = new JPanel();
 	JPanel handWeapon = new JPanel();
 	JPanel handRoom = new JPanel();
 	JPanel handPerson = new JPanel();
@@ -23,7 +23,7 @@ public class CardsPanel extends JPanel {
 	public static int numWeapons = 2;
 	public static int numPeople = 2;
 	public static int numRooms = 2;
-	JTextField none = new JTextField("none");
+	static JTextField none = new JTextField("none");
 	
 	public CardsPanel(HashSet<Card> hand) {
 		setLayout(new GridLayout(1,0));
@@ -139,7 +139,7 @@ public class CardsPanel extends JPanel {
 		return peoplePanel;
 	}
 	
-	public void addSeen(Card c , Color col) {
+	public static void addSeen(Card c , Color col) {
 		//classifying each card type
 		if(c.getCardType() == CardType.WEAPON) {
 			//add a card to the seen list, and make the list bigger

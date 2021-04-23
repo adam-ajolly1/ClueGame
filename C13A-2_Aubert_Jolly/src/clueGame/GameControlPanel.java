@@ -18,7 +18,7 @@ public class GameControlPanel extends JPanel implements ActionListener {
 	JTextField outName = new JTextField(10);
 	JTextField outRoll = new JTextField(5);
 	static JTextField outGuess = new JTextField(20);
-	JTextField outResult  = new JTextField(20);
+	static JTextField outResult  = new JTextField(20);
 	public static boolean hasFinished = true;
 	public static int currPlayerNum = 0;
 	private Player currPlayer;
@@ -100,7 +100,7 @@ public class GameControlPanel extends JPanel implements ActionListener {
 	public static void setGuess(String guess) {
 		outGuess.setText(guess);
 	}
-	private void setGuessResult(String result) {
+	public static void setGuessResult(String result) {
 		outResult.setText(result);
 	}
 
@@ -132,6 +132,7 @@ public class GameControlPanel extends JPanel implements ActionListener {
 	//if next is clicked
 	public void actionPerformed(ActionEvent e) {
 		this.setGuess(" ");
+		this.setGuessResult(" ");
 		Board.getInstance().repaint();
 		// TODO Auto-generated method stub
 		//if a player has not finished their turn
@@ -151,7 +152,6 @@ public class GameControlPanel extends JPanel implements ActionListener {
 			if (currPlayer instanceof HumanPlayer){
 				GameControlPanel.hasFinished = false;
 				for (BoardCell c: targets) {
-					System.out.println(c);
 					c.setTarget(true);
 				}
 				

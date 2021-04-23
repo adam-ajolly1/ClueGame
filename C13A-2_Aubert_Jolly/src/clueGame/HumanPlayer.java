@@ -18,9 +18,7 @@ public class HumanPlayer extends Player {
 		Card personCard = null;
 		Card weaponCard = null;
 		
-		//print statements to debug
-		System.out.println(personSuggestion);
-		System.out.println(weaponSuggestion);
+		
 		
 		//if the inputted string is the same as the card, set the card
 		for (Card c: Board.getInstance().getDeck()) {
@@ -31,6 +29,14 @@ public class HumanPlayer extends Player {
 			}
 		}
 		return new Solution(correspondingRoom, personCard, weaponCard);
+	}
+
+	public String getPersonSuggestion() {
+		return personSuggestion;
+	}
+
+	public String getWeaponSuggestion() {
+		return weaponSuggestion;
 	}
 
 	public void setPersonSuggestion(String personSuggestion) {

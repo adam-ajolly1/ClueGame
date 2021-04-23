@@ -604,14 +604,14 @@ public class Board extends JPanel implements ActionListener {
 
 		Player move = null;
 		for(Player x: this.playerList) {
-			if(x.getName() == PlayerToMove.getCardName()) {
+			if(x.getName().equals(PlayerToMove.getCardName())) {
 				move = x;
 				break;
 			}
 		}
 		Room r = null;
 		for (Entry<Room, Character> entry : roomMap.entrySet()) {
-			if (entry.getKey().getName() == roomSuggestion.getCardName()) {
+			if (entry.getKey().getName().equals(roomSuggestion.getCardName())) {
 				r = entry.getKey();
 				break;
 			}
@@ -630,7 +630,11 @@ public class Board extends JPanel implements ActionListener {
 				break;
 			}
 		}
+		if (toReturn == null) {
+			return toReturn;
+		}
 		p.updateSeen(toReturn); // adds the shown card to the seen list
+		CardsPanel.addSeen(toReturn, Color.white);
 		return toReturn;
 	}
 	// function that takes a Room on a board and returns the corresponding card
@@ -898,6 +902,26 @@ public class Board extends JPanel implements ActionListener {
 			//find the current room from the current player's location
 			Room playerRoom = this.grid[currPlayer.getRow()][currPlayer.getColumn()].getCorrespondingRoom();
 			Card correspondingRoom = this.roomToCard(playerRoom);
+			
+			Player personToMove = null;
+			for (Player p: Board.getInstance().getPlayerList()) {
+				if (p.getName().equals(currPlayer.getPersonSuggestion())) {
+					personToMove = p;
+				} 
+			}
+			Board.getInstance().grid[personToMove.getRow()][personToMove.getColumn()].setOccupied(false);
+			personToMove.setLocation(currPlayer.getRow(), currPlayer.getColumn());
+			Board.getInstance().grid[personToMove.getRow()][personToMove.getColumn()].setOccupied(true);
+			Board.getInstance().repaint();
+			
+			Card disproved = handleSuggestion(currPlayer.createSuggestion(correspondingRoom), currPlayer);
+			if(disproved!=null) {
+				GameControlPanel.setGuessResult(disproved.getCardName());
+			}
+			else {
+				GameControlPanel.setGuessResult("None");
+			}
+			Board.getInstance().repaint();
 			//set the guess in the game control panel using create suggestion in Human Player
 			GameControlPanel.setGuess(currPlayer.createSuggestion(correspondingRoom).toString());
 			//finish the Human players turn
@@ -910,7 +934,7 @@ public class Board extends JPanel implements ActionListener {
 			//finish player's turn
 			GameControlPanel.hasFinished = true;
 			
-			//hide suggestion fram and clear it.
+			//hide suggestion frame and clear it.
 			frame.setVisible(false);
 			frame = new JFrame("Make a suggestion");
 		}

@@ -50,7 +50,7 @@ public class ClueGame extends JFrame {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Welcome to Clue");
 		frame.setSize(500, 500);
-		JOptionPane.showMessageDialog(frame, "You are the Human. Can you find the solution before the Computer players? ");
+		JOptionPane.showMessageDialog(frame, "Oh no! Blaster the Burro has been kidnapped from the Mines campus! Can you find who did it before the Computer players? ");
 		ClueGame panel = new ClueGame();  // create the panel
 		
 
