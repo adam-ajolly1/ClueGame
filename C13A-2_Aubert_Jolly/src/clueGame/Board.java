@@ -635,6 +635,7 @@ public class Board extends JPanel implements ActionListener {
 		}
 		p.updateSeen(toReturn); // adds the shown card to the seen list
 		CardsPanel.addSeen(toReturn, Color.white);
+		ClueGame.getInstance().repaint();
 		return toReturn;
 	}
 	// function that takes a Room on a board and returns the corresponding card
@@ -914,16 +915,20 @@ public class Board extends JPanel implements ActionListener {
 			Board.getInstance().grid[personToMove.getRow()][personToMove.getColumn()].setOccupied(true);
 			Board.getInstance().repaint();
 			
-			Card disproved = handleSuggestion(currPlayer.createSuggestion(correspondingRoom), currPlayer);
+			Solution humanSuggestion = currPlayer.createSuggestion(correspondingRoom);
+			Card disproved = currPlayer.disproveSuggestion(humanSuggestion);
 			if(disproved!=null) {
 				GameControlPanel.setGuessResult(disproved.getCardName());
 			}
 			else {
+				GameControlPanel.accusationFlag = humanSuggestion;
 				GameControlPanel.setGuessResult("None");
 			}
-			Board.getInstance().repaint();
-			//set the guess in the game control panel using create suggestion in Human Player
+			
 			GameControlPanel.setGuess(currPlayer.createSuggestion(correspondingRoom).toString());
+			
+			ClueGame.getInstance().repaint();
+			//set the guess in the game control panel using create suggestion in Human Player
 			//finish the Human players turn
 			GameControlPanel.hasFinished = true;
 			
