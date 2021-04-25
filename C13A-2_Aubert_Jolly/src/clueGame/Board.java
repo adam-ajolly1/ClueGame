@@ -597,7 +597,6 @@ public class Board extends JPanel implements ActionListener {
 		}
 	}
 	public Card handleSuggestion(Solution suggestion, Player p) {
-		System.out.println(p.getName());
 		Card toReturn = new Card();
 		// moves player of suggestion into room
 		Card PlayerToMove = suggestion.getPerson();

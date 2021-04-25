@@ -152,7 +152,6 @@ public class GameControlPanel extends JPanel implements ActionListener {
 	@Override
 	//if next is clicked
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(e.getActionCommand());
 		if(e.getActionCommand().equals("NEXT!")) {
 			this.setGuess(" ");
 			this.setGuessResult(" ");
@@ -251,7 +250,6 @@ public class GameControlPanel extends JPanel implements ActionListener {
 			}
 		}
 		if(e.getActionCommand().equals("Make Accusation")) {
-			System.out.println("Tried to make an accusation");
 			if(!(currPlayer instanceof HumanPlayer)) {
 				System.out.println("It is not your turn to make an accusation.");
 			}
@@ -274,9 +272,9 @@ public class GameControlPanel extends JPanel implements ActionListener {
 			boolean roomMatches = Board.getInstance().getTheAnswer().getRoom().getCardName().substring(1).equals(currPlayer.getRoomSuggestion());
 			
 			
-			System.out.println(Board.getInstance().getTheAnswer().getRoom().getCardName().substring(1));
-			System.out.println(currPlayer.getRoomSuggestion());
-			System.out.println("answers " + personMatches + roomMatches +  weaponMatches);
+			//System.out.println(Board.getInstance().getTheAnswer().getRoom().getCardName().substring(1));
+			//System.out.println(currPlayer.getRoomSuggestion());
+			//System.out.println("answers " + personMatches + roomMatches +  weaponMatches);
 			
 			if(personMatches && roomMatches && weaponMatches) {
 				playerWinsScreen(Board.getInstance().getTheAnswer(), currPlayer);

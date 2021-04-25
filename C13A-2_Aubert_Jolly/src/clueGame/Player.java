@@ -63,8 +63,8 @@ public abstract class Player {
 		ArrayList<Card> matches = new ArrayList<Card>();
 		
 		for(Card c: this.getHand()) {
-			System.out.println(c.getCardName().substring(1));
-			System.out.println(suggestion.getRoom().getCardName());
+			//System.out.println(c.getCardName().substring(1));
+			//System.out.println(suggestion.getRoom().getCardName());
 			if(c.getCardName().substring(1).equals(suggestion.getRoom().getCardName()) || c.equals(suggestion.getPerson()) || c.equals(suggestion.getWeapon())) {
 				matches.add(c);
 			}
