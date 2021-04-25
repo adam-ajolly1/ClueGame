@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.Map.Entry;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -30,6 +31,7 @@ public class GameControlPanel extends JPanel implements ActionListener {
 		return weaponDropDown;
 	}
 	private JComboBox<String> personDropDown = new JComboBox();
+	private JComboBox<String> roomsDropDown = new JComboBox();
 
 
 	public JComboBox<String> getPersonDropDown() {
@@ -77,6 +79,7 @@ public class GameControlPanel extends JPanel implements ActionListener {
 		right.add(rollLabel, BorderLayout.WEST);
 		right.add(outRoll, BorderLayout.EAST);
 		JButton makeAccusation = new JButton("Make Accusation");
+		makeAccusation.addActionListener(this);
 		JButton next = new JButton("NEXT!");
 		next.addActionListener(this);
 		topPanel.add(left);
@@ -149,7 +152,7 @@ public class GameControlPanel extends JPanel implements ActionListener {
 	@Override
 	//if next is clicked
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("Next")) {
+		if(e.getActionCommand().equals("NEXT!")) {
 			this.setGuess(" ");
 			this.setGuessResult(" ");
 			Board.getInstance().repaint();
@@ -183,7 +186,7 @@ public class GameControlPanel extends JPanel implements ActionListener {
 					// choose a random target
 					// implement handle and create suggestion
 					if(accusationFlag != null) {
-						if(!(currPlayer.getHand().contains(accusationFlag.getRoom()))) {
+						if(!(currPlayer.getHand().contains(accusationFlag.getRoom()) || currPlayer.getHand().contains(accusationFlag.getPerson()) || currPlayer.getHand().contains(accusationFlag.getWeapon()))) {
 							Board.getInstance().checkAccusation(accusationFlag.getRoom(), accusationFlag.getPerson(), accusationFlag.getWeapon());
 							computerWinsScreen(accusationFlag, currPlayer);
 						}
@@ -247,6 +250,7 @@ public class GameControlPanel extends JPanel implements ActionListener {
 			}
 		}
 		if(e.getActionCommand().equals("Make Accusation")) {
+			System.out.println("Tried to make an accusation");
 			if(!(currPlayer instanceof HumanPlayer)) {
 				System.out.println("It is not your turn to make an accusation.");
 			}
@@ -262,14 +266,16 @@ public class GameControlPanel extends JPanel implements ActionListener {
 			//get the suggestion from the drop down menus
 			currPlayer.setPersonSuggestion((String) this.personDropDown.getSelectedItem());
 			currPlayer.setWeaponSuggestion((String) this.weaponDropDown.getSelectedItem());
-			//find the current room from the current player's location
-			Room playerRoom = Board.getInstance().grid[currPlayer.getRow()][currPlayer.getColumn()].getCorrespondingRoom();
-			Card correspondingRoom = Board.getInstance().roomToCard(playerRoom);
+			currPlayer.setRoomSuggestion((String) this.roomsDropDown.getSelectedItem());
+			
 			boolean personMatches = Board.getInstance().getTheAnswer().getPerson().getCardName().equals(currPlayer.getPersonSuggestion());
 			boolean weaponMatches = Board.getInstance().getTheAnswer().getWeapon().getCardName().equals(currPlayer.getWeaponSuggestion());
-			boolean roomMatches = Board.getInstance().getTheAnswer().getRoom().equals(correspondingRoom);
+			boolean roomMatches = Board.getInstance().getTheAnswer().getRoom().getCardName().equals(currPlayer.getRoomSuggestion());
 			if(personMatches && roomMatches && weaponMatches) {
 				playerWinsScreen(Board.getInstance().getTheAnswer(), currPlayer);
+			}
+			else {
+				playerLosesScreen(Board.getInstance().getTheAnswer(), currPlayer);
 			}
 		}
 	}
@@ -287,6 +293,13 @@ public class GameControlPanel extends JPanel implements ActionListener {
 		String winningSentence = "You won the game by guessing the correct solution: " + accusation;
 		JOptionPane.showMessageDialog(frame, winningSentence);
 	}
+	public void playerLosesScreen(Solution accusation, Player winner) {
+		JFrame frame = new JFrame("You lose! :(");
+		frame.setSize(500, 500);
+		String losingSentence = "You lost the game by guessing the incorrect solution. The Solution was: " + accusation;
+		JOptionPane.showMessageDialog(frame, losingSentence);
+		
+	}
 	
 	JFrame frame = new JFrame("Make an Accusation");
 	public Solution paintAccusationBox(Room r) {
@@ -295,13 +308,21 @@ public class GameControlPanel extends JPanel implements ActionListener {
 		frame.setLayout(new GridLayout(4,2));
 		JTextField roomText = new JTextField("Current room");
 		frame.add(roomText);
-		JTextField roomName = new JTextField(r.getName());
-		frame.add(roomName);
+		
+		String[] rooms = new String[Board.getInstance().getRoomMap().size()];
+		int index = 0;
+		for(Entry<Room, Character> entry : Board.getInstance().getRoomMap().entrySet()) {
+			rooms[index] = entry.getKey().getName();
+			index ++;
+		}
+		roomsDropDown = new JComboBox<String>(rooms);
+		frame.add(roomsDropDown);
+		
 		JTextField personText = new JTextField("Person");
 		frame.add(personText);
 		
 		String[] people = new String[Board.getInstance().getPlayerList().size()];
-		int index = 0;
+		index = 0;
 		for(Player x: Board.getInstance().getPlayerList()) {
 			people[index] = x.getName();
 			index ++;

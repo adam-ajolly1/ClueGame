@@ -61,6 +61,7 @@ public class ClueGame extends JFrame {
 		JOptionPane.showMessageDialog(frame, "Oh no! Blaster the Burro has been kidnapped from the Mines campus! Can you find who did it before the Computer players? ");
 		ClueGame panel = new ClueGame();  // create the panel
 		panel.initialize();
+		System.out.println("Solution should be: " + Board.getInstance().getTheAnswer());
 	}
 
 

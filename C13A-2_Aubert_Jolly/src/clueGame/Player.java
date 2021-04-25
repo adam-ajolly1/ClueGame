@@ -61,8 +61,11 @@ public abstract class Player {
 	}
 	public Card disproveSuggestion(Solution suggestion) {
 		ArrayList<Card> matches = new ArrayList<Card>();
+		
 		for(Card c: this.getHand()) {
-			if(c.equals(suggestion.getRoom()) || c.equals(suggestion.getPerson()) || c.equals(suggestion.getWeapon())) {
+			System.out.println(c.getCardName().substring(1));
+			System.out.println(suggestion.getRoom().getCardName());
+			if(c.getCardName().substring(1).equals(suggestion.getRoom().getCardName()) || c.equals(suggestion.getPerson()) || c.equals(suggestion.getWeapon())) {
 				matches.add(c);
 			}
 		}

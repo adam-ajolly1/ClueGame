@@ -597,6 +597,7 @@ public class Board extends JPanel implements ActionListener {
 		}
 	}
 	public Card handleSuggestion(Solution suggestion, Player p) {
+		System.out.println(p.getName());
 		Card toReturn = new Card();
 		// moves player of suggestion into room
 		Card PlayerToMove = suggestion.getPerson();
@@ -622,7 +623,7 @@ public class Board extends JPanel implements ActionListener {
 		// iterates over player list and disproves suggestion, continuing 
 		// if the player is the suggesting player. 
 		for(Player x: this.playerList) {
-			if(x.equals(p)) {
+			if(x.getName().equals(p.getName())) {
 				continue;
 			}
 			toReturn = x.disproveSuggestion(suggestion);
@@ -634,7 +635,9 @@ public class Board extends JPanel implements ActionListener {
 			return toReturn;
 		}
 		p.updateSeen(toReturn); // adds the shown card to the seen list
-		CardsPanel.addSeen(toReturn, Color.white);
+		if(p instanceof HumanPlayer) {
+			CardsPanel.addSeen(toReturn, Color.white);
+		}
 		ClueGame.getInstance().repaint();
 		return toReturn;
 	}
@@ -916,7 +919,12 @@ public class Board extends JPanel implements ActionListener {
 			Board.getInstance().repaint();
 			
 			Solution humanSuggestion = currPlayer.createSuggestion(correspondingRoom);
-			Card disproved = currPlayer.disproveSuggestion(humanSuggestion);
+
+			
+			
+			GameControlPanel.setGuess(currPlayer.createSuggestion(correspondingRoom).toString());
+			Card disproved = Board.getInstance().handleSuggestion(currPlayer.createSuggestion(correspondingRoom), currPlayer);
+			
 			if(disproved!=null) {
 				GameControlPanel.setGuessResult(disproved.getCardName());
 			}
@@ -924,8 +932,6 @@ public class Board extends JPanel implements ActionListener {
 				GameControlPanel.accusationFlag = humanSuggestion;
 				GameControlPanel.setGuessResult("None");
 			}
-			
-			GameControlPanel.setGuess(currPlayer.createSuggestion(correspondingRoom).toString());
 			
 			ClueGame.getInstance().repaint();
 			//set the guess in the game control panel using create suggestion in Human Player

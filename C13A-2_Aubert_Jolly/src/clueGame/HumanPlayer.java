@@ -11,7 +11,16 @@ public class HumanPlayer extends Player {
 	
 	String personSuggestion;
 	String weaponSuggestion;
+	String roomSuggestion;
 	
+	public String getRoomSuggestion() {
+		return roomSuggestion;
+	}
+
+	public void setRoomSuggestion(String roomSuggestion) {
+		this.roomSuggestion = roomSuggestion;
+	}
+
 	@Override
 	protected Solution createSuggestion(Card correspondingRoom) {
 		// TODO Auto-generated method stub
