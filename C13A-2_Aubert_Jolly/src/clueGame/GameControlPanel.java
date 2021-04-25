@@ -152,6 +152,7 @@ public class GameControlPanel extends JPanel implements ActionListener {
 	@Override
 	//if next is clicked
 	public void actionPerformed(ActionEvent e) {
+		System.out.println(e.getActionCommand());
 		if(e.getActionCommand().equals("NEXT!")) {
 			this.setGuess(" ");
 			this.setGuessResult(" ");
@@ -260,7 +261,7 @@ public class GameControlPanel extends JPanel implements ActionListener {
 				}
 				
 			}
-		if (e.getActionCommand().equals("Submit")) {
+		if (e.getActionCommand().equals("Accuse")) {
 			//set the current player
 			HumanPlayer currPlayer = (HumanPlayer) Board.getInstance().getPlayerList().get(GameControlPanel.currPlayerNum % 6);
 			//get the suggestion from the drop down menus
@@ -270,7 +271,13 @@ public class GameControlPanel extends JPanel implements ActionListener {
 			
 			boolean personMatches = Board.getInstance().getTheAnswer().getPerson().getCardName().equals(currPlayer.getPersonSuggestion());
 			boolean weaponMatches = Board.getInstance().getTheAnswer().getWeapon().getCardName().equals(currPlayer.getWeaponSuggestion());
-			boolean roomMatches = Board.getInstance().getTheAnswer().getRoom().getCardName().equals(currPlayer.getRoomSuggestion());
+			boolean roomMatches = Board.getInstance().getTheAnswer().getRoom().getCardName().substring(1).equals(currPlayer.getRoomSuggestion());
+			
+			
+			System.out.println(Board.getInstance().getTheAnswer().getRoom().getCardName().substring(1));
+			System.out.println(currPlayer.getRoomSuggestion());
+			System.out.println("answers " + personMatches + roomMatches +  weaponMatches);
+			
 			if(personMatches && roomMatches && weaponMatches) {
 				playerWinsScreen(Board.getInstance().getTheAnswer(), currPlayer);
 			}
