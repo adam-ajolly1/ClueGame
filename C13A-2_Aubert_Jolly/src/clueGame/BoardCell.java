@@ -145,16 +145,16 @@ public class BoardCell {
 
 	public void draw(int width, int height, int offset, Graphics g) {
 		if (this.isRoom && !this.isUnused) {
-			g.setColor(Color.GREEN);
+			g.setColor(new Color(205, 97, 85 ));
 		}
 		else if (this.isUnused) {
-			g.setColor(Color.BLUE);
+			g.setColor(new Color(46, 134, 193));
 		} 
 		else {
-			g.setColor(Color.YELLOW);
+			g.setColor(new Color(249, 231, 159 ));
 		}
 		if (this.isTarget) {
-			g.setColor(Color.CYAN);
+			g.setColor(new Color(125, 206, 160));
 		}
 		g.fillRect(this.col * width + offset, this.row * height + offset, width, height);
 		if (!this.isRoom) {
@@ -164,7 +164,7 @@ public class BoardCell {
 		
 
 		if (this.isDoorway()) {
-			g.setColor(Color.MAGENTA);
+			g.setColor(new Color(125, 206, 160));
 			switch(this.doordirection) {
 			case UP:
 				g.fillRect(this.col * width + offset, this.row*height + offset, width, 5);
