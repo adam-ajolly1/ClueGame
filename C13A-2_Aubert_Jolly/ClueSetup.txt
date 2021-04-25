@@ -17,7 +17,7 @@ Person, Marvin, #C9576E
 Person, PCJ, #9F57C9
 Person, Marlene, #FFFFFF
 Person, Adam, #57C962
-Person, Katherine, #000000
+Person, Katherine, #7FB3D5
 // weapons
 Weapon, Blue Key
 Weapon, Blastercard

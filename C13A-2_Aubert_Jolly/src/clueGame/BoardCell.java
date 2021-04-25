@@ -145,7 +145,7 @@ public class BoardCell {
 
 	public void draw(int width, int height, int offset, Graphics g) {
 		if (this.isRoom && !this.isUnused) {
-			g.setColor(new Color(205, 97, 85 ));
+			g.setColor(new Color(230, 176, 170));
 		}
 		else if (this.isUnused) {
 			g.setColor(new Color(46, 134, 193));
